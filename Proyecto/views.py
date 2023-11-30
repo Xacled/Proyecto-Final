@@ -7,3 +7,4 @@ def Home(request):
 def Contacto(request):
 
 	return render(request,'contacto.html')
+
