@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block contenido %}
+	<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}         
+         <h3>CREAR NOTICIA</h3>
+          {{form.as_p}}
+          <p><input type="submit" value="Confirmar"></p>
+        </form>
+{% endblock contenido %}

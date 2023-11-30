@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block contenido %}
+	<h1>DETALLE DE {{noticia.titulo}}</h1>
+	<p><strong>TITULO:</strong>{{noticia.titulo}}</p>
+	<p><strong>CONTENIDO:</strong>{{noticia.contenido}}</p>
+	<p><img src="{{noticia.imagen.url}}" width="150px"></p>
+	
+{% endblock contenido %}
