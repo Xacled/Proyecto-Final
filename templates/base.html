@@ -11,6 +11,12 @@
 <body>
 	
 	{% include "navbar.html" %}
+	{% if user.is_authenticated %}
+		<strong>WELCOME {{user.username}}</strong>
+		<a href="{% url 'logout'%}">LOGOUT</a>
+	{% else %}
+		<a href="{% url 'login'%}">LOGIN</a>
+	{% endif %}
 
 	{% block contenido %}
 
