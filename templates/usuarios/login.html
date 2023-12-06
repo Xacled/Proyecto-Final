@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
-
+{%load static%}
 {% block contenido %}
-			<form method="POST">{%csrf_token%}
-				{{form.errors}}
-				<input type="text" name="username" placeholder="USUARIO">
-				<input type="password" name="password" placeholder="PASSWORD">
+	<div class="login-box">
+		<form method="POST">{%csrf_token%}
+			{{form.errors}}
+			<div class="form-group">
+				<label for="usuario">Usuario</label>
+				<input type="text" class="form-control" id="usuario" name="username" placeholder="Usuario">
+			</div>
+			<div class="form-group">
+				<label for="contrasena">Contraseña</label>
+				<input type="password" class="form-control" id="contrasena" name="password" placeholder="Password" >
+			</div>
+			<div>
+				<button type="submit" class="btn btn-primary btn-block mt-3" name="" value="ENVIAR">Iniciar Sesión</button>
 
-				<input type="submit" name="" value="ENVIAR">
-			</form>
+			</div>
+		</form>
+	</div>
 {% endblock %}

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
-
 {% block contenido %}
+{% if user.is_authenticated %}
+	<strong>WELCOME {{user.username}}</strong>
+{% endif %}
+
 	<h1>SOY EL HOME</h1>
 {% endblock contenido %}
