@@ -1,15 +1,24 @@
 {% load static%}
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    
+
     <div class="container-fluid">
+      
       <a class="navbar-brand" href="{% url 'Inicio' %}">
         <img src="{% static 'img/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
         Blogsito
       </a>
+
+      
+      {% if user.is_authenticated %}
+      <a href="{% url 'logout'%}" class="btn btn-primary btn-sm d-inline-block align-text-top">Logout</a>
+      {% else %}
+      <a href="{% url 'login'%}" class="btn btn-primary btn-sm d-inline-block align-text-top" >Login</a>
+      {% endif %}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto">
               <li class="nav-item">
@@ -39,20 +48,12 @@
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li>{% endcomment %}
-        </ul>
-        <ul>
-        {% if user.is_authenticated %}
-		      <a href="{% url 'logout'%}">LOGOUT</a>
-	      {% else %}
-		      <a href="{% url 'login'%}">LOGIN</a>
-		      <a href="{% url 'usuarios:registro_usuario' %}">Registrarme</a>
-	      {% endif %}
-        </ul>
-        
-        <form class="d-flex" role="search">
+        </ul>       
+        <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
-    </div>
+    </div>   
   </nav>
+  
