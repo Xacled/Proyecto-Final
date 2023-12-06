@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
 
-	<head>
-		<title>NOTICIAS</title>
-	</head>
-{% block contenido %}
-	
-	
-	
-	{{fecha}}
+<head>
+    <title>NOTICIAS</title>
+</head>
 
-	{% for n in noticias %}
-		<div>
-			<p><strong>TITULO:</strong>{{n.titulo}}</p>
-			<p><strong>CONTENIDO:</strong>{{n.contenido}}</p>
-			<a href="{% url 'noticias:detalle_noticia' n.pk %}">
-			<p><img src="{{n.imagen.url}}" width="150px"></p>
-			</a>
-			<a href="{% url 'noticias:detalle_noticia' n.pk %}">Ver mas</a>
-			<a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
-			<a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrar</a>
-		</div><hr><hr>
-	{% endfor %}
+{% block contenido %}
+    {{ fecha }}
+
+    {% for n in noticias %}
+        <div>
+            <p><strong>TITULO:</strong>{{ n.titulo }}</p>
+            <p><strong>CONTENIDO:</strong>{{ n.contenido }}</p>
+            <a href="{% url 'noticias:detalle_noticia' n.pk %}">
+                <p><img src="{{ n.imagen.url }}" width="150px"></p>
+            </a>
+            <a href="{% url 'noticias:detalle_noticia' n.pk %}">Ver mas</a>
+
+            {% if user.is_authenticated and user.is_staff %}
+                <!-- Mostrar enlaces solo si el usuario está autenticado y es un administrador -->
+                <a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
+                <a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrar</a>
+            {% endif %}
+        </div>
+    {% endfor %}
 {% endblock contenido %}
