@@ -1,7 +1,10 @@
-{% extends 'base.html' %} {%load static%} {% block contenido %}
+{% extends 'base.html' %} 
+{%load static%} 
 
-<form action="" method="post">
-  {% csrf_token %}
+
+{% block contenido %}
+
+
   <section class="h-100 gradient-form" style="background-color: #eee">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -10,91 +13,27 @@
             <div class="row g-0">
               <div class="col-lg-6">
                 <div class="card-body p-md-5 mx-md-4">
-                  <form>
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <p class="fw-bold">Registrese, por favor</p>
+
+                    {% for field in form %}
+                    <div class="form-outline mb-4">
+                      <div class="form-label">
+                        {{ field.label_tag }}
+                      </div>
+                      <div class="">
+                      {{ field }}
+                      </div>
+                    </div>
+                    {% comment %} {% if field.help_text %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %} {% endcomment %}
+                    {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
                     
-                    <p>Registrese, por favor</p>
-                    <div class="form-outline mb-4">
-                      <!-- Nombres -->
-                      <label class="form-label" for="id_first_name"
-                        >Nombres</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="id_first_name"
-                        maxlength="150"
-                        name="first_name"
-                        placeholder="User"
-                      />
-
-                      <!-- Apellidos -->
-                      <label class="form-label" for="id_last_name"
-                        >Apellidos</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="id_last_name"
-                        name="last_name"
-                        maxlength="150"
-                        placeholder="User"
-                      />
-
-                      <!-- Nombre de usuario -->
-                      <label class="form-label" for="id_username"
-                        >Usuario</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="id_username"
-                        name="username"
-                        maxlength="20"
-                        placeholder="User"
-                      />
-
-                      <!-- Email -->
-                      <label class="form-label" for="id_email">Email</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="id_email"
-                        maxlength="254"
-                        name="email"
-                        placeholder="User"
-                      />
-                    </div>
-
-                    <div class="form-outline mb-4">
-                      <!-- Contraseña 1 -->
-                      <label class="form-label" for="id_password1"
-                        >Contraseña</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="id_password1"
-                        name="password1"
-                        autocomplete="new-password"
-                        required
-                        placeholder="Password"
-                      />
-
-                      <!-- Contraseña 2 -->
-                      <label class="form-label" for="id_password2"
-                        >Contraseña</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="id_password2"
-                        name="password2"
-                        autocomplete="new-password"
-                        required
-                        placeholder="Password"
-                      />
-                    </div>
-
+                    {% endfor %}
                     <div class="text-center pt-1 mb-5 pb-1">
                       <button
                         class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
@@ -133,7 +72,7 @@
       </div>
     </div>
   </section>
-</form>
+
 
 
 {% endblock contenido %}
