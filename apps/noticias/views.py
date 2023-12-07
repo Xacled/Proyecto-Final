@@ -2,20 +2,35 @@ from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from .models import Noticia
+from .models import Noticia, Categoria
 from .forms import Formulario_Noticia, Formulario_Modificar_Noticia
+
+#CONTROLA SI EL USUARIO ESTA LOGEADO EN UNA VISTA BASADA EN CLASES
+from django.contrib.auth.mixins import LoginRequiredMixin
+#CONTROLA SI EL USUARIO ESTA LOGEADO EN UNA VISTA BASADA EN FUNCIONEs
+from django.contrib.auth.decorators import login_required
+
+#CONTROLA QUE EL USUARIO SEA STAFF VISTA BASADA EN FuNCION
+from django.contrib.admin.views.decorators import staff_member_required
+#CONTROLA QUE EL USUARIO SEA STAFF PARA VISTA BASADA EN CLASE
+from django.contrib.auth.mixins    import UserPassesTestMixin
+
 
 #Vasta Basada en funciones
 def Home_Noticias(request):
-
-	#ORM
-	todas = Noticia.objects.all()
-
 	contexto = {}
+	cat = Categoria.objects.all()
+	contexto['categorias'] = cat
 
+	filtro = request.GET.get('categoria',None)
+	if not filtro or filtro == '0':
+		todas = Noticia.objects.all()
+	else:
+		categoria_seleccionada = Categoria.objects.get(pk = filtro)
+		todas = Noticia.objects.filter(categoria = categoria_seleccionada)
+
+	
 	contexto['noticias'] = todas
-	contexto['fecha'] = '28-11-2023'
-
 	return render(request, 'noticias/home_noticias.html', contexto)
 
 #ACLARACION
