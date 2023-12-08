@@ -10,10 +10,10 @@
               <div class="card-body p-md-5 mx-md-4">
                 <form action="" method="post">
                   {% csrf_token %}
-                  <p class="fw-bold">Registrese, por favor</p>
+                  <p class="fw-bold text-center">Registrese, por favor</p>
 
                   {% for field in form %}
-                  <div class="form-outline mb-4">
+                  <div class="form-outline mb-4 text-center">
                     <div class="form-label">{{ field.label_tag }}</div>
                     <div class="">{{ field }}</div>
                   </div>
@@ -24,7 +24,7 @@
                   {% endfor %} {% endfor %}
                   <div class="text-center pt-1 mb-5 pb-1">
                     <button
-                      class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                      class="btn btn-primary border shadow gradient-custom-2 mb-3"
                       value="Confirmar"
                       type="submit"
                     >
@@ -39,9 +39,9 @@
                     <p class="mb-0 me-2">Ya tienes una cuenta?</p>
                     <a
                       type="button"
-                      class="btn btn-outline-danger"
+                      class="btn shadow btn-outline-danger opacity-60"
                       href="{% url 'login'%}"
-                      >Inicia Sesion</a
+                      >Inicia Sesión</a
                     >
                   </div>
                 </form>
@@ -49,12 +49,9 @@
             </div>
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
               <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                <h4 class="mb-4">We are more than just a company</h4>
+                <h4 class="mb-4">Bienvenido al Portal Climático: Tu Fuente de Conciencia Ambiental</h4>
                 <p class="small mb-0">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
+                  ¡Hola, amante del planeta! En el Portal Climático, nos apasiona proporcionarte las últimas noticias e información sobre el cambio climático para que estés siempre informado y empoderado para tomar medidas. Nuestro compromiso con la conciencia ambiental es inquebrantable, y queremos que formes parte de esta comunidad dedicada a la protección de nuestro hogar compartido: la Tierra.
                 </p>
               </div>
             </div>
