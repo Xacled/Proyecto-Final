@@ -12,17 +12,17 @@
                   {% csrf_token %}
                   <p class="fw-bold text-center">Registrese, por favor</p>
 
-                  {% for field in form %}
                   <div class="form-outline mb-4 text-center">
+                  {% for field in form %}
                     <div class="form-label">{{ field.label_tag }}</div>
                     <div class="">{{ field }}</div>
+                    {% comment %} {% if field.help_text %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %} {% endcomment %} {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %} {% endfor %}
                   </div>
-                  {% comment %} {% if field.help_text %}
-                  <small style="color: grey">{{ field.help_text }}</small>
-                  {% endif %} {% endcomment %} {% for error in field.errors %}
-                  <p style="color: red">{{ error }}</p>
-                  {% endfor %} {% endfor %}
-                  <div class="text-center pt-1 mb-5 pb-1">
+                  <div class="text-center pt-1 mb-5 pb-1 d-grid gap-2">
                     <button
                       class="btn btn-primary border shadow gradient-custom-2 mb-3"
                       value="Confirmar"
