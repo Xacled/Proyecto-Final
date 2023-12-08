@@ -13,6 +13,11 @@
 			{% for c in categorias %}
 				<li><a href="?categoria={{c.id}}">{{c.nombre}}</a></li>
 			{% endfor %}
+			<li class="nav-item{% if request.path == url %}active{% endif %}">
+				<a class="nav-link" href="{% url 'noticias:cargar_noticia' %}"
+				  >Crear</a
+				>
+			  </li>
 		</ul>
 	</div>
 	<div class="col-md-4">
@@ -31,6 +36,7 @@
                 {% endif %}
 			</div><hr><hr>
 		{% endfor %}	
+		
 	</div>
 	<div class="col-md-4">
 	</div>

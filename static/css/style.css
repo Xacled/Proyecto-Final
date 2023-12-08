@@ -46,3 +46,6 @@
   border-color: rgba(var(--bs-success-rgb), var(--bs-border-opacity)) !important;
 }
 
+.btn {
+  padding: .55rem 1.5rem .45rem;
+}
