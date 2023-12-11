@@ -1,47 +1,45 @@
-{% extends 'base.html' %}
-
-
-{% block contenido %}
+{% extends 'base.html' %} {% block contenido %}
 <div class="container">
-	<div class="text-center">
-	<h1>SOY HOME DE NOTICIAS</h1>
-	</div>
-	<div class="row" style="padding-top: 100px;">
-	<div class="col-md-4">
-		<ul>
-				<li><a href="?categoria=0">TODAS</a></li>
-			{% for c in categorias %}
-				<li><a href="?categoria={{c.id}}">{{c.nombre}}</a></li>
-			{% endfor %}
-			<li class="nav-item{% if request.path == url %}active{% endif %}">
-				<a class="nav-link" href="{% url 'noticias:cargar_noticia' %}"
-				  >Crear</a
-				>
-			  </li>
-		</ul>
-	</div>
-	<div class="col-md-4">
-		{% for n in noticias %}
-			<div>
-				<p><strong>TITULO:</strong>{{n.titulo}}</p>
-				<p><strong>CONTENIDO:</strong>{{n.contenido}}</p>
-				<p><strong>CATEGORIA: </strong>{{n.categoria}}</p>
-				<a href="{% url 'noticias:detalle_noticia' n.pk %}">
-				<p><img src="{{n.imagen.url}}" width="150px"></p>
-				</a>
-				<a href="{% url 'noticias:detalle_noticia' n.pk %}">Ver mas</a>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
-                    <a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrar</a>
-                {% endif %}
-			</div><hr><hr>
-		{% endfor %}	
-		
-	</div>
-	<div class="col-md-4">
-	</div>
-	</div>
-		
-	
+  <div class="text-center">
+    <h1>SOY HOME DE NOTICIAS</h1>
+  </div>
+  <div class="row" style="padding-top: 100px">
+    <div class="col-md-4">
+      <ul>
+        <li><a href="?categoria=0">TODAS</a></li>
+        {% for c in categorias %}
+        <li><a href="?categoria={{c.id}}">{{c.nombre}}</a></li>
+        {% endfor %}
+        <li><a href="?orden=creado">Ordenar por fecha</a></li>
+        <li><a href="?orden=visitas">Ordenar por visitas</a></li>
+        <li class="nav-item{% if request.path == url %}active{% endif %}">
+          <a class="nav-link" href="{% url 'noticias:cargar_noticia' %}"
+            >Crear</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      {% for n in noticias %}
+      <div>
+        <p><strong>TITULO:</strong>{{n.titulo}}</p>
+        <p><strong>CONTENIDO:</strong>{{n.contenido}}</p>
+        <p><strong>CATEGORIA: </strong>{{n.categoria}}</p>
+        <a href="{% url 'noticias:detalle_noticia' n.pk %}">
+          <p><img src="{{n.imagen.url}}" width="150px" /></p>
+        </a>
+        <p>Visitas:{{n.visitas}}</p>
+        <a href="{% url 'noticias:detalle_noticia' n.pk %}">Ver mas</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
+        <a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrar</a>
+        {% endif %}
+      </div>
+      <hr />
+      <hr />
+      {% endfor %}
+    </div>
+    <div class="col-md-4"></div>
+  </div>
 </div>
 {% endblock contenido %}
