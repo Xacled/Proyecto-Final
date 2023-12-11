@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.noticias',
     'apps.usuarios',
-    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
