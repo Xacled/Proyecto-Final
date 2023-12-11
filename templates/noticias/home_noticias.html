@@ -12,6 +12,7 @@
         {% endfor %}
         <li><a href="?orden=creado">Ordenar por fecha</a></li>
         <li><a href="?orden=visitas">Ordenar por visitas</a></li>
+        <li><a href="?orden=likes">Ordenar por likes</a></li>
         <li class="nav-item{% if request.path == url %}active{% endif %}">
           <a class="nav-link" href="{% url 'noticias:cargar_noticia' %}"
             >Crear</a

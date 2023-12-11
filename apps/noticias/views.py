@@ -24,7 +24,7 @@ def Home_Noticias(request):
 
     filtro = request.GET.get('categoria', None)
     orden = request.GET.get('orden', None)
-    
+
     if not filtro or filtro == '0':
         todas = Noticia.objects.all()
     else:
@@ -33,6 +33,8 @@ def Home_Noticias(request):
 
     if orden == 'visitas':
         todas = todas.order_by('-visitas')
+    elif orden == 'likes':
+        todas= todas.order_by('-likes')
     else:
         todas = todas.order_by('-creado')
     contexto['noticias'] = todas
