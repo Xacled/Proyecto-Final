@@ -65,19 +65,19 @@ class Cargar_noticia(CreateView):
     model = Noticia
     template_name = 'noticias/cargar_noticia.html'
     form_class = Formulario_Noticia
-    success_url = reverse_lazy('noticias:h_noticias')
+    success_url = reverse_lazy('noticias:home_noticias')
 
 
 class Modificar_noticia(UpdateView):
     model = Noticia
     template_name = 'noticias/modificar_noticia.html'
     form_class = Formulario_Modificar_Noticia
-    success_url = reverse_lazy('noticias:h_noticias')
+    success_url = reverse_lazy('noticias:home_noticias')
 
 
 class Borrar_noticia(DeleteView):
     model = Noticia
-    success_url = reverse_lazy('noticias:h_noticias')
+    success_url = reverse_lazy('noticias:home_noticias')
 
 # ORM
 # CONSULTA PARA TRAER TODOS LOS DATOS
