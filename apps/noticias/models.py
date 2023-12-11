@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -27,6 +27,9 @@ class Noticia(models.Model):
     imagen = models.ImageField(upload_to='noticias')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     visitas = models.PositiveIntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name="not_megustas",blank=True)
 
+    def count_likes(self):
+        return self.likes.count()
     def __str__(self):
         return self.titulo

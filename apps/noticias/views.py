@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -24,7 +24,7 @@ def Home_Noticias(request):
 
     filtro = request.GET.get('categoria', None)
     orden = request.GET.get('orden', None)
-
+    
     if not filtro or filtro == '0':
         todas = Noticia.objects.all()
     else:
@@ -99,5 +99,16 @@ def Detalle_noticia(request, pk):
     noticia.visitas += 1
     noticia.save()
 
+    ctx['likes'] = noticia.count_likes()
     ctx['noticia'] = noticia
+    ctx['checklike'] = request.user in noticia.likes.all()
     return render(request, 'noticias/detalle_noticia.html', ctx)
+
+
+def megusta(request, pk):
+    noticia = get_object_or_404(Noticia, pk=pk)
+    if request.user in noticia.likes.all():
+        noticia.likes.remove(request.user)
+    else:
+        noticia.likes.add(request.user.id)
+    return redirect('/noticias/Detalle/'+str(noticia.id))

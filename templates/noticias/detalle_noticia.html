@@ -6,5 +6,6 @@
 	<p><strong>TITULO:</strong>{{noticia.titulo}}</p>
 	<p><strong>CONTENIDO:</strong>{{noticia.contenido}}</p>
 	<p><img src="{{noticia.imagen.url}}" width="150px"></p>
-	
+	<a href="{% url 'noticias:megusta' noticia.pk %}">{% if checklike%}Dislike{%else%}Like{%endif%}</a>
+	<p>Likes: {{likes}}</p>
 {% endblock contenido %}
