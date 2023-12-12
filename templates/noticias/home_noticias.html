@@ -25,7 +25,7 @@
       <div>
         <p><strong>TITULO:</strong>{{n.titulo}}</p>
         <p><strong>CONTENIDO:</strong>{{n.contenido}}</p>
-        <p><strong>CATEGORIA: </strong>{{n.categoria}}</p>
+        <p><strong>CATEGORIA: </strong>{{n.categoria|safe}}</p>
         <a href="{% url 'noticias:detalle_noticia' n.pk %}">
           <p><img src="{{n.imagen.url}}" width="150px" /></p>
         </a>
