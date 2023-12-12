@@ -12,7 +12,7 @@ class Formulario_Modificar_Noticia(forms.ModelForm):
 
 	class Meta:
 		model = Noticia
-		fields = ['contenido','imagen','categoria']
+		fields = ['titulo','contenido','imagen','categoria']
 
 
 class ComentarioForm(forms.ModelForm):
