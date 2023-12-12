@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from ckeditor.fields import RichTextField
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
 
@@ -19,7 +19,7 @@ class Noticia(models.Model):
         auto_now=True
     )
     titulo = models.CharField(max_length=250)
-    contenido = models.TextField()
+    contenido = RichTextField()
     # para usar ImegeField, necesito tener instalado la libreria pillow
     # pip install pillow
     imagen = models.ImageField(upload_to='noticias')
