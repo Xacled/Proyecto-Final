@@ -5,7 +5,8 @@
 {% if user.is_authenticated %}
 <strong>Welcome {{user.username}}</strong>
 {% endif %}
-<div id="carouselExampleCaptions" class="carousel slide">
+<h2>Mas Populares</h2>
+<div id="carouselExampleCaptions" class="carousel slide" style="max-width: 800px; margin: auto;">
 	<div class="carousel-indicators">
 		{% for i in noticias_populares %}
 			<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %} aria-label="Slide {{ forloop.counter }}">
@@ -15,7 +16,7 @@
 	<div class="carousel-inner">
 		{% for n in noticias_populares %}
 			<div class="carousel-item {% if forloop.first %}active{% endif %}">
-				<img src="{{ n.imagen.url }}" class="d-block w-100" alt="...">
+				<img src="{{ n.imagen.url }}" class="d-block w-100 carousel-image" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 					<h5>{{ n.titulo }}</h5>
 					<p>{{ n.contenido }}</p>
@@ -32,7 +33,6 @@
 		<span class="carousel-control-next-icon" aria-hidden="true"></span>
 		<span class="visually-hidden">Next</span>
 	</button>
-
 </div>
 
 {% endblock contenido %}

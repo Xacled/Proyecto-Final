@@ -50,3 +50,8 @@
   padding: .55rem 1.5rem .45rem;
 }
 
+.carousel-image {
+  max-width: 100%;
+  height: auto;
+}
+
