@@ -8,4 +8,17 @@
 	<p><img src="{{noticia.imagen.url}}" width="150px"></p>
 	<a href="{% url 'noticias:megusta' noticia.pk %}">{% if checklike%}Dislike{%else%}Like{%endif%}</a>
 	<p>Likes: {{likes}}</p>
+
+	<div>
+		<form method="post" action="">
+			{% csrf_token %}
+			{{ comentario_form.as_p }}
+			<button type="submit">Comentar</button>
+		</form>
+		<h3>Comentarios</h3>
+		{% for comentario in comentarios %}
+			<p>{{ comentario.usuario.username }} - {{ comentario.contenido }} - {{comentario.fecha_creacion}}</p>
+		{% endfor %}
+	
+	</div>
 {% endblock contenido %}

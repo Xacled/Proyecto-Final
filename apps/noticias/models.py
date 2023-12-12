@@ -33,3 +33,12 @@ class Noticia(models.Model):
         return self.likes.count()
     def __str__(self):
         return self.titulo
+
+class Comentario(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE)
+    contenido = models.TextField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.noticia.titulo}"
