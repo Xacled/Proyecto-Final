@@ -10,11 +10,15 @@
 	<p>Likes: {{likes}}</p>
 	<hr>
 	<div>
+		{% if user.is_authenticated %}
 		<form method="post" action="">
 			{% csrf_token %}
 			{{ comentario_form.as_p }}
 			<button type="submit">Comentar</button>
 		</form>
+		{% else %}
+		<h3>Incia sesion o registrate para comentar!</h3>
+		{% endif %}
 		<h3>Comentarios</h3>
 		{% for comentario in comentarios %}
 			<p>{{ comentario.usuario.username }} - {{ comentario.contenido }} - {{comentario.fecha_creacion}}</p>
