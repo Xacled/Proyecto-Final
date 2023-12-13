@@ -33,8 +33,10 @@
         <p>Visitas:{{n.visitas}}</p>
         <a href="{% url 'noticias:detalle_noticia' n.pk %}">Ver mas</a>
         {% if user.is_authenticated %}
+          {%if user.id == n.usuario.pk or user.is_colab%}
         <a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
         <a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrar</a>
+          {% endif %}
         {% endif %}
       </div>
       <hr />

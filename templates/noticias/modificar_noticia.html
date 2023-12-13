@@ -2,9 +2,13 @@
 
 {% block contenido %}
 <h2>Modificar Noticia</h2>
+{% if user.is_authenticated %}
+    {%if user.id == noticia.usuario.pk or user.is_colab%}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Guardar cambios</button>
 </form>
+    {% endif %}
+{% endif %}
 {% endblock %}
