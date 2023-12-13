@@ -23,9 +23,10 @@
     <div class="col-md-4">
       {% for n in noticias %}
       <div>
-        <p><strong>TITULO:</strong>{{n.titulo}}</p>
-        <p><strong>CONTENIDO:</strong>{{n.contenido}}</p>
-        <p><strong>CATEGORIA: </strong>{{n.categoria}}</p>
+        <p><strong>Publicado:</strong> {{n.creado}}</p>
+        <p><strong>{{n.titulo}}</strong></p>
+        <p>{{n.contenido|striptags|truncatechars:100}}</p>
+        <p><strong>Categoria: </strong>{{n.categoria}}</p>
         <a href="{% url 'noticias:detalle_noticia' n.pk %}">
           <p><img src="{{n.imagen.url}}" width="150px" /></p>
         </a>
