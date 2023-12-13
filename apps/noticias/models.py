@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
-
+from django.conf import settings
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
@@ -21,8 +21,8 @@ class Noticia(models.Model):
     imagen = models.ImageField(upload_to="noticias")
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     visitas = models.PositiveIntegerField(default=0)
-    likes = models.ManyToManyField(User, related_name="not_megustas", blank=True)
-
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="not_megustas", blank=True)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,blank=True,null=True)
     def count_likes(self):
         return self.likes.count()
 
@@ -31,7 +31,7 @@ class Noticia(models.Model):
 
 
 class Comentario(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE)
     contenido = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
