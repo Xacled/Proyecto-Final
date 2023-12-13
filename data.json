@@ -1,0 +1,122 @@
+[
+    {
+      "model": "noticias.categoria",
+      "pk": 1,
+      "fields": { "nombre": "categoria1" }
+    },
+    {
+      "model": "noticias.categoria",
+      "pk": 2,
+      "fields": { "nombre": "categoria2" }
+    },
+    {
+      "model": "noticias.categoria",
+      "pk": 3,
+      "fields": { "nombre": "categoria3" }
+    },
+    {
+      "model": "noticias.noticia",
+      "pk": 8,
+      "fields": {
+        "creado": "2023-12-13T07:33:34.375Z",
+        "modificado": "2023-12-13T07:37:53.083Z",
+        "titulo": "Noticia 1",
+        "contenido": "<p>Este es el contenido de Noticia 1</p>",
+        "imagen": "noticias/1.jpg",
+        "categoria": 1,
+        "visitas": 5,
+        "likes": [],
+        "usuario":1
+      }
+    },
+    {
+      "model": "noticias.noticia",
+      "pk": 2,
+      "fields": {
+        "creado": "2023-12-13T08:15:22.789Z",
+        "modificado": "2023-12-13T08:20:11.225Z",
+        "titulo": "Descubrimiento Científico Revolucionario",
+        "contenido": "<p>Científicos logran descubrimiento que cambiará la forma en que entendemos el universo.</p>",
+        "imagen": "noticias/2.jpg",
+        "categoria": 2,
+        "visitas": 10,
+        "likes": [],
+        "usuario":1
+      }
+    },
+    {
+      "model": "noticias.noticia",
+      "pk": 3,
+      "fields": {
+        "creado": "2023-12-13T09:45:18.501Z",
+        "modificado": "2023-12-13T09:50:37.624Z",
+        "titulo": "Evento Extraterrestre en el Cielo Nocturno",
+        "contenido": "<p>Luces misteriosas iluminan el cielo en un evento celestial sin explicación.</p>",
+        "imagen": "noticias/3.jpg",
+        "categoria": 3,
+        "visitas": 8,
+        "likes": [],
+        "usuario":1
+      }
+    },
+    {
+      "model": "noticias.noticia",
+      "pk": 4,
+      "fields": {
+        "creado": "2023-12-13T11:20:44.932Z",
+        "modificado": "2023-12-13T11:25:19.006Z",
+        "titulo": "Descubren Nueva Especie Marina",
+        "contenido": "<p>Científicos submarinistas encuentran una nueva especie en las profundidades del océano.</p>",
+        "imagen": "noticias/4.jpg",
+        "categoria": 1,
+        "visitas": 12,
+        "likes": [],
+        "usuario":1
+      }
+    },
+    {
+      "model": "noticias.noticia",
+      "pk": 5,
+      "fields": {
+        "creado": "2023-12-13T12:55:09.743Z",
+        "modificado": "2023-12-13T12:59:44.108Z",
+        "titulo": "Nuevo Avance en Tecnología Espacial",
+        "contenido": "<p>Científicos logran un avance tecnológico que podría revolucionar los viajes espaciales.</p>",
+        "imagen": "noticias/5.jpg",
+        "categoria": 2,
+        "visitas": 15,
+        "likes": [],
+        "usuario":2
+      }
+    },
+    {
+      "model": "noticias.noticia",
+      "pk": 6,
+      "fields": {
+        "creado": "2023-12-13T14:30:33.354Z",
+        "modificado": "2023-12-13T14:35:22.511Z",
+        "titulo": "Invento Revolucionario en la Medicina",
+        "contenido": "<p>Científicos presentan un invento que promete cambiar el panorama de la medicina moderna.</p>",
+        "imagen": "noticias/6.jpg",
+        "categoria": 3,
+        "visitas": 18,
+        "likes": [],
+        "usuario":2
+      }
+    },
+    {
+      "model": "noticias.noticia",
+      "pk": 7,
+      "fields": {
+        "creado": "2023-12-13T16:05:57.965Z",
+        "modificado": "2023-12-13T16:10:09.022Z",
+        "titulo": "Hallazgo Arqueológico en una Antigua Ciudad",
+        "contenido": "<p>Arqueólogos descubren tesoros ocultos en las ruinas de una antigua ciudad perdida.</p>",
+        "imagen": "noticias/7.jpg",
+        "categoria": 1,
+        "visitas": 20,
+        "likes": [],
+        "usuario":2
+      }
+    }
+  ]
