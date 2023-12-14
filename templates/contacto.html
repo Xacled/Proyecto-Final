@@ -1,6 +1,43 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Contactos</title>
+</head>
+<body>
 
+<div class="container">
+    <header class="header">
+        <h1>Contactos</h1>
+        <nav class="menu">
+            <a href="#">Inicio</a>
+            <a href="#">Acerca de</a>
+            <a href="#">Servicios</a>
+            <a href="#">Contacto</a>
+        </nav>
+    </header>
 
-{% block contenido %}
-	<h1>SOY CONTACTOS </h1>
-{% endblock contenido %}
+    <div class="container-content">
+        <h1>Contacto</h1>
+
+        <div class="contact-form">
+            <form action="#" method="post">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Mensaje:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
