@@ -3,36 +3,48 @@
 
 {% block contenido %}
 {% if user.is_authenticated %}
-<strong>Welcome {{user.username}}</strong>
+  <strong>Welcome {{ user.username }}</strong>
 {% endif %}
-<h2>Mas Populares</h2>
-<div id="carouselExampleCaptions" class="carousel slide" style="max-width: 800px; margin: auto;">
-	<div class="carousel-indicators">
-		{% for i in noticias_populares %}
-			<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %} aria-label="Slide {{ forloop.counter }}">
-			</button>
-		{% endfor %}
-	</div>
-	<div class="carousel-inner">
-		{% for n in noticias_populares %}
-			<div class="carousel-item {% if forloop.first %}active{% endif %}">
-				<img src="{{ n.imagen.url }}" class="d-block w-100 carousel-image" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-					<h5>{{ n.titulo }}</h5>
-					<p>{{ n.contenido }}</p>
-				</div>
-			</div>
-		{% endfor %}
-	</div>
+<header class="py-5 bg-light border-bottom mb-4">
+  <div class="container">
+      <div class="text-center my-5">
+          <h1 class="fw-bolder">Bienvenido al blog climatico</h1>
+          <p class="lead mb-0">Esta es la pagina de inicio donde encontraras las noticias mas vistas</p>
+      </div>
+  </div>
+</header>
+<h2>Noticias Populares</h2>
+<div id="carouselExampleCaptions" class="carousel slide" style="max-width: 1200px; margin: auto;">
+  <div class="carousel-indicators">
+    {% for i in noticias_populares %}
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %} aria-label="Slide {{ forloop.counter }}">
+      </button>
+    {% endfor %}
+  </div>
+  <div class="carousel-inner">
+    {% for n in noticias_populares %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ n.imagen.url }}" class="d-block " style="width: 1200px; height: 720px; object-fit: cover;" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>{{ n.titulo }}</h5>
+          <p>{{ n.contenido|striptags}}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 
-	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		<span class="visually-hidden">Previous</span>
-	</button>
-	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-		<span class="carousel-control-next-icon" aria-hidden="true"></span>
-		<span class="visually-hidden">Next</span>
-	</button>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<div>
+  Aqui va el resto de contenido el cual se necesite añadir
 </div>
 
 {% endblock contenido %}

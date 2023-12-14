@@ -1,75 +1,51 @@
 {% load static%}
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top nav-underline">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'Inicio' %}">
-      <img src="{% static 'img/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
-      Blogsito
-    </a>
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top nav-underline ">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'Inicio' %}">
+            <img src="{% static 'img/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
+            Blogsito
+        </a>
 
-    <!-- login  y logout -->
-
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'Inicio' %}">Inicio</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link {% if request.path == '/noticias/' %}active{% endif %}"
-            href="{% url 'noticias:home_noticias' %}">Noticias</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link {% if request.path == '/contacto' %}active{% endif %}"
-            href="{% url 'Contacto' %}">Contacto</a>
-        </li>
-
-        {% comment %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
-        {% endcomment %}
-      </ul>
-      <!-- <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> -->
-    </div>
-    <div class="d-flex">
-      {% if user.is_authenticated %}
-
-      <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit"
-          class="btn btn-primary btn-sm  border shadow gradient-custom-2 d-none d-sm-block align-text-top">
-          Cerrar sesión
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-      </form>
-      {% else %}
-      <a href="{% url 'login'%}"
-        class="btn btn-primary btn-sm  border shadow gradient-custom-2 d-none d-sm-block align-text-top">Inicia
-        Sesión</a>
-      {% endif %}
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'Inicio' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/noticias/' %}active{% endif %}"
+                        href="{% url 'noticias:home_noticias' %}">Noticias</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/contacto' %}active{% endif %}"
+                        href="{% url 'Contacto' %}">Contacto</a>
+                </li>
+            </ul>
+
+            <!-- Incluye la funcionalidad de la primera navbar aquí -->
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-sm border shadow gradient-custom-2 d-none d-sm-block align-text-top">
+                            Cerrar sesión
+                        </button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'login'%}" class="btn btn-primary btn-sm border shadow gradient-custom-2 d-none d-sm-block align-text-top">
+                        Inicia Sesión
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
