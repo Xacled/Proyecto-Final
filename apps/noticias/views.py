@@ -125,3 +125,5 @@ def megusta(request, pk):
     else:
         noticia.likes.add(request.user.id)
     return redirect('/noticias/Detalle/'+str(noticia.id))
+
+##############################COMENTARIOS
