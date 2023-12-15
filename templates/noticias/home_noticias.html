@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block contenido %}
-<div class="container">
+<!-- <div class="container">
   <div class="text-center">
     <h1>SOY HOME DE NOTICIAS</h1>
   </div>
@@ -14,13 +14,11 @@
         <li><a href="?orden=visitas">Ordenar por visitas</a></li>
         <li><a href="?orden=likes">Ordenar por likes</a></li>
         {% if user.is_authenticated %}
-          
+
         <li class="nav-item{% if request.path == url %}active{% endif %}">
-          <a class="nav-link" href="{% url 'noticias:cargar_noticia' %}"
-            >Crear</a
-          >
+          <a class="nav-link" href="{% url 'noticias:cargar_noticia' %}">Crear</a>
         </li>
-        
+
         {% endif %}
       </ul>
     </div>
@@ -37,10 +35,10 @@
         <p>Visitas:{{n.visitas}}</p>
         <a href="{% url 'noticias:detalle_noticia' n.pk %}">Ver mas</a>
         {% if user.is_authenticated %}
-          {%if user.id == n.usuario.pk or user.is_colab%}
+        {%if user.id == n.usuario.pk or user.is_colab%}
         <a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
         <a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrar</a>
-          {% endif %}
+        {% endif %}
         {% endif %}
       </div>
       <hr />
@@ -49,5 +47,116 @@
     </div>
     <div class="col-md-4"></div>
   </div>
+</div> -->
+
+
+
+<div class="container">
+  <div class="row">
+    <!-- Blog entries-->
+    <div class="col-lg-8">
+      <!-- Featured blog post-->
+      {% if noticias %}
+      <div class="card mb-4">
+        <a href="{% url 'noticias:detalle_noticia' noticias.0.pk %}"><img class="card-img-top"
+            style="width: 100%; height: 350px" src="{{ noticias.0.imagen.url }}" alt="..." /></a>
+        <div class="card-body">
+          <div class="small text-muted">{{ noticias.0.creado }} {{ noticias.0.categoria }}</div>
+          <h2 class="card-title">{{ noticias.0.titulo }}</h2>
+          <p class="card-text">{{ noticias.0.contenido|striptags|truncatechars:100 }}</p>
+
+          <a class="btn btn-primary" href="{% url 'noticias:detalle_noticia' noticias.0.pk %}">Ver más</a>
+          {% if user.is_authenticated %}
+          {% if user.id == noticias.0.usuario.pk or user.is_colab %}
+          <a class="btn btn-primary" href="{% url 'noticias:modificar_noticia' noticias.0.pk %}">Modificar</a>
+          <a class="btn btn-primary" href="{% url 'noticias:borrar_noticia' noticias.0.pk %}">Borrar</a>
+          {% endif %}
+          {% endif %}
+        </div>
+      </div>
+      <hr>
+      {% endif %}
+      <!-- Nested row for non-featured blog posts-->
+      <div class="row">
+        {% for n in noticias|slice:"1:5" %}
+        <div class="col-lg-6">
+
+          <div class="card mb-4">
+            <a href="{% url 'noticias:detalle_noticia' n.pk %}"><img class="card-img-top" src="{{ n.imagen.url }}"
+                style="width: 100%; height: 350px" /></a>
+            <div class="card-body">
+              <div class="small text-muted">{{ n.creado }} {{ n.categoria }}</div>
+              <h2 class="card-title h4">{{ n.titulo }}</h2>
+              <p class="card-text">{{ n.contenido|striptags|truncatechars:100 }}</p>
+              <a class="btn btn-primary" href="{% url 'noticias:detalle_noticia' n.pk %}">Leer más</a>
+            </div>
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Pagination-->
+      <nav aria-label="Pagination">
+        <hr class="my-0" />
+        <ul class="pagination justify-content-center my-4">
+          <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+          <li class="page-item"><a class="page-link" href="#!">2</a></li>
+          <li class="page-item"><a class="page-link" href="#!">3</a></li>
+          <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+          <li class="page-item"><a class="page-link" href="#!">15</a></li>
+          <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!-- Side widgets-->
+    <div class="col-lg-4">
+      <!-- Search widget -->
+      <div class="card mb-4">
+        <div class="card-header">Search</div>
+        <div class="card-body">
+          <div class="input-group">
+            <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..."
+              aria-describedby="button-search" />
+            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories widget -->
+      <div class="card mb-4">
+        <div class="card-header">Categories</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <ul class="list-unstyled mb-0">
+                <li><a href="?categoria=0">TODAS</a></li>
+                {% for c in categorias|slice:":2" %}
+                <li><a href="?categoria={{c.id}}">{{c.nombre}}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-sm-6">
+              <ul class="list-unstyled mb-0">
+                {% for c in categorias|slice:"2:" %}
+                <li><a href="?categoria={{c.id}}">{{c.nombre}}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Other widgets (e.g., Side Widget) -->
+      
+      {% if user.is_authenticated %}
+      <div class="card mb-4">
+        <div class="card-header {% if request.path == url %}active{% endif %} text-center"><a class="nav-link" href="{% url 'noticias:cargar_noticia' %}">Publicar Noticia</a></div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
 </div>
+
 {% endblock contenido %}
