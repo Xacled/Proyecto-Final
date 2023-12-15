@@ -15,8 +15,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 # CONTROLA QUE EL USUARIO SEA STAFF PARA VISTA BASADA EN CLASE
 from django.contrib.auth.mixins import UserPassesTestMixin
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
 
-# Vasta Basada en funciones
 def Home_Noticias(request):
     contexto = {}
     cat = Categoria.objects.all()
@@ -34,10 +35,24 @@ def Home_Noticias(request):
     if orden == 'visitas':
         todas = todas.order_by('-visitas')
     elif orden == 'likes':
-        todas= todas.order_by('-likes')
+        todas = todas.order_by('-likes')
     else:
         todas = todas.order_by('-creado')
-    contexto['noticias'] = todas
+
+    # Implementar paginación
+    paginator = Paginator(todas, 5)  # Muestra 10 noticias por página
+    page = request.GET.get('page')
+
+    try:
+        noticias = paginator.page(page)
+    except PageNotAnInteger:
+        # Si la página no es un número entero, muestra la primera página
+        noticias = paginator.page(1)
+    except EmptyPage:
+        # Si la página está fuera de rango, muestra la última página disponible
+        noticias = paginator.page(paginator.num_pages)
+
+    contexto['noticias'] = noticias
     return render(request, 'noticias/home_noticias.html', contexto)
 
 
@@ -127,3 +142,5 @@ def megusta(request, pk):
     return redirect('/noticias/Detalle/'+str(noticia.id))
 
 ##############################COMENTARIOS
+
+
