@@ -3,7 +3,9 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Noticia, Categoria
-from .forms import Formulario_Noticia, Formulario_Modificar_Noticia, ComentarioForm
+from .forms import Formulario_Noticia, Formulario_Modificar_Noticia
+from apps.comentarios.models import Comentario
+
 
 # CONTROLA SI EL USUARIO ESTA LOGEADO EN UNA VISTA BASADA EN CLASES
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -112,15 +114,6 @@ def Detalle_noticia(request, pk):
     ctx = {}
     noticia = get_object_or_404(Noticia, pk=pk)
 
-    if request.method == 'POST':
-        comentario_form = ComentarioForm(request.POST)
-        if comentario_form.is_valid():
-            comentario = comentario_form.save(commit=False)
-            comentario.usuario = request.user
-            comentario.noticia = noticia
-            comentario.save()
-    else:
-        comentario_form = ComentarioForm()
     # Incrementar el contador de visitas
     noticia.visitas += 1
     noticia.save()
@@ -128,8 +121,8 @@ def Detalle_noticia(request, pk):
     ctx['likes'] = noticia.count_likes()
     ctx['noticia'] = noticia
     ctx['checklike'] = request.user in noticia.likes.all()
-    ctx['comentario_form'] = comentario_form
-    ctx['comentarios'] = noticia.comentario_set.all()
+    com = Comentario.objects.filter(noticia = noticia)
+    ctx['comentarios'] = com
     return render(request, 'noticias/detalle_noticia.html', ctx)
 
 

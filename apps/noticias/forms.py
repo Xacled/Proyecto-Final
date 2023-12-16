@@ -1,5 +1,5 @@
 from django import forms
-from .models import Noticia, Comentario
+from .models import Noticia
 
 
 class Formulario_Noticia(forms.ModelForm):
@@ -14,8 +14,3 @@ class Formulario_Modificar_Noticia(forms.ModelForm):
 		model = Noticia
 		fields = ['titulo','contenido','imagen','categoria']
 
-
-class ComentarioForm(forms.ModelForm):
-    class Meta:
-        model = Comentario
-        fields = ['contenido']

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+  <div>
+        <form action="" method="post">{% csrf_token %}         
+         <h3 class="mb-4">MODIFICAR COMENTARIO: "{{object.texto}}"</h3>
+          {{form.as_p}}
+          <p><input type="submit"  value="Confirmar"></p>
+        </form>
+     
+  </div>
+
+{% endblock contenido %}

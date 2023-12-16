@@ -29,12 +29,3 @@ class Noticia(models.Model):
     def __str__(self):
         return self.titulo
 
-
-class Comentario(models.Model):
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE)
-    contenido = models.TextField()
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.usuario.username} - {self.noticia.titulo}"

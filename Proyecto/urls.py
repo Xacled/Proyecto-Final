@@ -35,5 +35,8 @@ urlpatterns = [
 
     #APP USUARIOs
     path('Usuarios/', include('apps.usuarios.urls')),
+        
+    #APP Comentarios
+    path('Comentarios/', include('apps.comentarios.urls')),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
