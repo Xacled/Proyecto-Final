@@ -69,3 +69,17 @@ class RegistroForm(UserCreationForm):
             'password1',
             'password2'
         ]
+
+class Formulario_Modificar_Usuario(forms.ModelForm):
+
+	class Meta:
+		model = CustomUser
+		fields = [
+            'first_name',
+            'last_name',
+            'username',
+            'email',
+            'picture',
+            'bio'
+        ]
+

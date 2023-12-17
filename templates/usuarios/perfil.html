@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {%load static%} {% block contenido %}
+
+
+{% comment %} {% if request.user.is_authenticated %}
+      {% if user.id == user.pk or user.is_colab %} {% endcomment %}
+          <a class="btn btn-primary" href="{% url 'usuarios:modificar_perfil' user.pk %}">Modificar Perfil</a>
+{% comment %} {%endif%}
+{%endif%} {% endcomment %}
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ user.picture.url }}" alt="Imagen de Perfil" class="rounded-circle img-fluid" style="max-width: 150px; max-height: 150px;">
+                            <h2 class="mt-3">{{ user.first_name }} {{ user.last_name }}</h2>
+                            <h4>{{ user.username }}</h4>
+                            <p>{{ user.bio }}</p>
+                        </div>
+                        
+                        <ul class="nav nav-tabs mt-4">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts">Posts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="comments-tab" data-toggle="tab" href="#comments">Comentarios</a>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content mt-3">
+                            <div class="tab-pane fade show active" id="posts">
+                                <!-- Contenido de la pestaña de posts -->
+                                {% comment %} {% for post in user.noticias.all %}
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ post.title }}</h5>
+                                            <p class="card-text">{{ post.content }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %} {% endcomment %}
+                            </div>
+                            <div class="tab-pane fade" id="comments">
+                                <!-- Contenido de la pestaña de comentarios -->
+                                {% comment %} {% for comment in user.comments.all %}
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <p class="card-text">{{ comment.content }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %} {% endcomment %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock contenido %}

@@ -2,7 +2,7 @@
 
 <nav class="navbar fw-bolder navbar-expand-lg bg-body-tertiary fixed-top nav-underline ">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'Inicio' %}">
+        <a class="navbar-brand ps-5" href="{% url 'Inicio' %}">
             <img src="{% static 'img/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
             Blogsito
         </a>
@@ -28,14 +28,24 @@
             </ul>
 
             <ul class="navbar-nav  py-4 py-lg-0">
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <form method="post" action="{% url 'logout' %}">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown pe-5">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        
+                        <img src="{{user.picture.url}}" alt="Imagen de perfil" class="rounded-circle" width="30" height="30" style="margin-right: 5px;">
+                        {{user.username}}
+                    </a>
+                    <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{%url "usuarios:ver_perfil" user.username%}">Ver perfil</a></li>
+                      <li><a class="dropdown-item" href="#">Modificar perfil</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#"><form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-primary btn-sm border shadow gradient-custom-2 d-none d-sm-block align-text-top">
                             Cerrar sesión
                         </button>
-                    </form>
+                    </form></a></li>
+                    </ul>
                 </li>
                 {% else %}
                 <li class="nav-item">

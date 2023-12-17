@@ -34,7 +34,7 @@ urlpatterns = [
     path('logout/',auth.LogoutView.as_view(),name="logout"),
 
     #APP USUARIOs
-    path('Usuarios/', include('apps.usuarios.urls')),
+    path('usuarios/', include('apps.usuarios.urls')),
         
     #APP Comentarios
     path('Comentarios/', include('apps.comentarios.urls')),

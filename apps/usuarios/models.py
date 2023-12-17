@@ -5,8 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     
-    picture = models.ImageField(upload_to="usuarios/",default="usuarios/default.jpg")
-    
+    picture = models.ImageField(upload_to="usuarios/",default="usuarios/default.png")
+    bio = models.CharField(max_length=150,blank=True)
     is_colab = models.BooleanField(default=False)
     
     def __str__(self):
