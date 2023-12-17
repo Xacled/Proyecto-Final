@@ -2,13 +2,16 @@
 {% load static %}
 
 {% block contenido %}
-{% if user.is_authenticated %}
-  <strong>Welcome {{ user.username }}</strong>
-{% endif %}
 <header class="py-5 bg-light border-bottom mb-4">
+
+
   <div class="container">
       <div class="text-center my-5">
-          <h1 class="fw-bolder">Bienvenido al blog climatico</h1>
+          {% if user.is_authenticated %}
+          <h1 class="fw-bolder">{{ user.username }} Bienvenido al blog climatico </h1>
+          {% else  %}
+          <h1 class="fw-bolder">Bienvenido al blog climatico </h1>
+          {% endif %}       
           <p class="lead mb-0">Esta es la pagina de inicio donde encontraras las noticias mas vistas</p>
       </div>
   </div>

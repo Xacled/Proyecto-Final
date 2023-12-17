@@ -27,8 +27,7 @@
                 </li>
             </ul>
 
-            <!-- Incluye la funcionalidad de la primera navbar aquí -->
-            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+            <ul class="navbar-nav  py-4 py-lg-0">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <form method="post" action="{% url 'logout' %}">
