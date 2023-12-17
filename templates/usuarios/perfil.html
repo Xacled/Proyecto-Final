@@ -31,14 +31,15 @@
                         <div class="tab-content mt-3">
                             <div class="tab-pane fade show active" id="posts">
                                 <!-- Contenido de la pestaña de posts -->
-                                {% comment %} {% for post in user.noticias.all %}
+                                
+                                {% for n in noticias_user %}
                                     <div class="card mb-3">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ post.title }}</h5>
-                                            <p class="card-text">{{ post.content }}</p>
+                                            <h5 class="card-title">{{ n.titulo }}</h5>
+                                            
                                         </div>
                                     </div>
-                                {% endfor %} {% endcomment %}
+                                {% endfor %}
                             </div>
                             <div class="tab-pane fade" id="comments">
                                 <!-- Contenido de la pestaña de comentarios -->
