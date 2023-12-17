@@ -1,6 +1,6 @@
 {% load static%}
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top nav-underline ">
+<nav class="navbar fw-bolder navbar-expand-lg bg-body-tertiary fixed-top nav-underline ">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'Inicio' %}">
             <img src="{% static 'img/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
@@ -12,7 +12,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto justify-content-center">
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'Inicio' %}">Inicio</a>

@@ -1,3 +1,9 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Oswald', sans-serif;
+}
 .gradient-custom-2 {
   /* fallback for old browsers */
   background: #fccb90;
@@ -54,11 +60,7 @@
   max-width: 100%;
   height: auto;
 }
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+
 
 footer {
   background-color: rgba(0, 0, 0, 0.05);
@@ -80,4 +82,28 @@ header.mosthead {
   background-color: #6c757d;
   background-size: cover;
   background-attachment: scroll;
+}
+
+
+.post-heading, header.mosthead .site-heading {
+  color: #ff0000;
+}
+
+
+.texto-con-borde {
+  font-size: 24px; /* Ajusta el tamaño de la fuente según tus necesidades */
+  color: #fff; /* Color del texto */
+  text-shadow: -1px -1px 1px black,  
+                1px -1px 1px black,
+               -1px 1px 1px black,
+                1px 1px 1px black; /* Ajusta la distancia y el color del sombreado */
+}
+
+.oscurecer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Ajusta el valor alpha (cuarto parámetro) para cambiar la opacidad */
 }

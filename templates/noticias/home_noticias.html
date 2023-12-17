@@ -1,56 +1,4 @@
 {% extends 'base.html' %} {% block contenido %}
-<!-- <div class="container">
-  <div class="text-center">
-    <h1>SOY HOME DE NOTICIAS</h1>
-  </div>
-  <div class="row" style="padding-top: 4s0x">
-    <div class="col-md-4">
-      <ul>
-        <li><a href="?categoria=0">TODAS</a></li>
-        {% for c in categorias %}
-        <li><a href="?categoria={{c.id}}">{{c.nombre}}</a></li>
-        {% endfor %}
-        <li><a href="?orden=creado">Ordenar por fecha</a></li>
-        <li><a href="?orden=visitas">Ordenar por visitas</a></li>
-        <li><a href="?orden=likes">Ordenar por likes</a></li>
-        {% if user.is_authenticated %}
-
-        <li class="nav-item{% if request.path == url %}active{% endif %}">
-          <a class="nav-link" href="{% url 'noticias:cargar_noticia' %}">Crear</a>
-        </li>
-
-        {% endif %}
-      </ul>
-    </div>
-    <div class="col-md-4">
-      {% for n in noticias %}
-      <div>
-        <p><strong>Publicado:</strong> {{n.creado}}</p>
-        <p><strong>{{n.titulo}}</strong></p>
-        <p>{{n.contenido|striptags|truncatechars:100}}</p>
-        <p><strong>Categoria: </strong>{{n.categoria}}</p>
-        <a href="{% url 'noticias:detalle_noticia' n.pk %}">
-          <p><img src="{{n.imagen.url}}" width="150px" /></p>
-        </a>
-        <p>Visitas:{{n.visitas}}</p>
-        <a href="{% url 'noticias:detalle_noticia' n.pk %}">Ver mas</a>
-        {% if user.is_authenticated %}
-        {%if user.id == n.usuario.pk or user.is_colab%}
-        <a href="{% url 'noticias:modificar_noticia' n.pk %}">Modificar</a>
-        <a href="{% url 'noticias:borrar_noticia' n.pk %}">Borrar</a>
-        {% endif %}
-        {% endif %}
-      </div>
-      <hr />
-      <hr />
-      {% endfor %}
-    </div>
-    <div class="col-md-4"></div>
-  </div>
-</div> -->
-
-
-
 <div class="container">
   <div class="row">
     <!-- Blog entries-->
@@ -61,17 +9,11 @@
         <a href="{% url 'noticias:detalle_noticia' noticias.0.pk %}"><img class="card-img-top"
             style="width: 100%; height: 350px" src="{{ noticias.0.imagen.url }}" alt="..." /></a>
         <div class="card-body">
-          <div class="small text-muted">{{ noticias.0.creado }} {{ noticias.0.categoria }}</div>
+          <div class="small text-muted">{{ noticias.0.creado }}--{{ noticias.0.categoria }}</div>
           <h2 class="card-title">{{ noticias.0.titulo }}</h2>
           <p class="card-text">{{ noticias.0.contenido|striptags|truncatechars:100 }}</p>
 
-          <a class="btn btn-primary" href="{% url 'noticias:detalle_noticia' noticias.0.pk %}">Ver más</a>
-          {% if user.is_authenticated %}
-          {% if user.id == noticias.0.usuario.pk or user.is_colab %}
-          <a class="btn btn-primary" href="{% url 'noticias:modificar_noticia' noticias.0.pk %}">Modificar</a>
-          <a class="btn btn-primary" href="{% url 'noticias:borrar_noticia' noticias.0.pk %}">Borrar</a>
-          {% endif %}
-          {% endif %}
+          <a class="btn btn-primary border shadow gradient-custom-2 mb-3" href="{% url 'noticias:detalle_noticia' noticias.0.pk %}">Leer más</a>
         </div>
       </div>
       <hr>
@@ -84,10 +26,10 @@
             <a href="{% url 'noticias:detalle_noticia' n.pk %}"><img class="card-img-top" src="{{ n.imagen.url }}"
                 style="width: 100%; height: 350px" /></a>
             <div class="card-body">
-              <div class="small text-muted">{{ n.creado }} {{ n.categoria }}</div>
+              <div class="small text-muted">{{ n.creado }}--{{ n.categoria }}</div>
               <h2 class="card-title h4">{{ n.titulo }}</h2>
               <p class="card-text">{{ n.contenido|striptags|truncatechars:100 }}</p>
-              <a class="btn btn-primary" href="{% url 'noticias:detalle_noticia' n.pk %}">Leer más</a>
+              <a class="btn btn-primary border shadow gradient-custom-2 mb-3" href="{% url 'noticias:detalle_noticia' n.pk %}">Leer más</a>
             </div>
           </div>
 
@@ -100,14 +42,14 @@
         <ul class="pagination justify-content-center my-4">
             {% if noticias.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page=1" tabindex="-1" aria-disabled="true">Newer</a>
+                    <a class="page-link" href="?page=1" tabindex="-1" aria-disabled="true">Anterior</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ noticias.previous_page_number }}">previous</a>
+                    <a class="page-link" href="?page={{ noticias.previous_page_number }}">Previa</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
-                    <span class="page-link">Newer</span>
+                    <span class="page-link">Inicio</span>
                 </li>
             {% endif %}
 
@@ -125,50 +67,47 @@
 
             {% if noticias.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ noticias.next_page_number }}">next</a>
+                    <a class="page-link" href="?page={{ noticias.next_page_number }}">Siguiente</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ noticias.paginator.num_pages }}">last</a>
+                    <a class="page-link" href="?page={{ noticias.paginator.num_pages }}">Ultima</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
-                    <span class="page-link">Older</span>
+                    <span class="page-link">Ultima</span>
                 </li>
             {% endif %}
         </ul>
     </nav>
     </div>
-    <!-- Side widgets-->
     <div class="col-lg-4">
-      <!-- Search widget -->
       <div class="card mb-4">
-        <div class="card-header">Search</div>
+        <div class="card-header">Buscar Noticia</div>
         <div class="card-body">
           <div class="input-group">
             <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..."
               aria-describedby="button-search" />
-            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+            <button class="btn btn-primary" id="button-search" type="button">Buscar</button>
           </div>
         </div>
       </div>
 
-      <!-- Categories widget -->
       <div class="card mb-4">
-        <div class="card-header">Categories</div>
+        <div class="card-header">Categorias</div>
         <div class="card-body">
           <div class="row">
             <div class="col-sm-6">
               <ul class="list-unstyled mb-0">
-                <li><a href="?categoria=0">TODAS</a></li>
+                <li><a class="text-decoration-none" href="?categoria=0"><strong>TODAS</strong></a></li>
                 {% for c in categorias|slice:":2" %}
-                <li><a href="?categoria={{c.id}}">{{c.nombre}}</a></li>
+                <li><a class="text-decoration-none" href="?categoria={{c.id}}"><strong>{{c.nombre}}</strong></a></li>
                 {% endfor %}
               </ul>
             </div>
             <div class="col-sm-6">
               <ul class="list-unstyled mb-0">
                 {% for c in categorias|slice:"2:" %}
-                <li><a href="?categoria={{c.id}}">{{c.nombre}}</a></li>
+                <li><a class="text-decoration-none" href="?categoria={{c.id}}"><strong>{{c.nombre}}</strong></a></li>
                 {% endfor %}
               </ul>
             </div>

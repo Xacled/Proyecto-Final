@@ -2,20 +2,27 @@
 {% load static %}
 
 {% block contenido %}
-<header class="py-5 bg-light border-bottom mb-4">
 
+{% load static %}
 
-  <div class="container">
-      <div class="text-center my-5">
+<header class="mosthead w-100 img-fluid position-relative" style="background-image: url('{% static 'img/a.jpg' %}') ">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="post-heading text-center">
           {% if user.is_authenticated %}
-          <h1 class="fw-bolder">{{ user.username }} Bienvenido al blog climatico </h1>
+          <h1 class="fw-bolder" style="color: white;">{{ user.username }} Bienvenido al blog climático </h1>
           {% else  %}
-          <h1 class="fw-bolder">Bienvenido al blog climatico </h1>
+          <h1 class="fw-bolder" style="color: white;">Bienvenido al blog climático </h1>
           {% endif %}       
-          <p class="lead mb-0">Esta es la pagina de inicio donde encontraras las noticias mas vistas</p>
+          <p class="lead mb-0" style="color: white;">Esta es la página de inicio donde encontrarás las noticias más vistas</p>
+        </div>
       </div>
+    </div>
   </div>
 </header>
+
+
 <h2>Noticias Populares</h2>
 <div id="carouselExampleCaptions" class="carousel slide" style="max-width: 1200px; margin: auto;">
   <div class="carousel-indicators">
@@ -27,10 +34,10 @@
   <div class="carousel-inner">
     {% for n in noticias_populares %}
       <div class="carousel-item {% if forloop.first %}active{% endif %}">
-        <img src="{{ n.imagen.url }}" class="d-block " style="width: 1200px; height: 720px; object-fit: cover;" alt="...">
+        <img src="{{ n.imagen.url }}" class="d-block img-fluid" style="width: 1200px; height: 720px; object-fit: cover;">
         <div class="carousel-caption d-none d-md-block">
-          <h5>{{ n.titulo }}</h5>
-          <p>{{ n.contenido|striptags}}</p>
+          <h5 class="fw-bolder">{{ n.titulo }}</h5>
+          <p class="fw-bolder">{{ n.contenido|striptags|truncatechars:80}}</p>
         </div>
       </div>
     {% endfor %}
@@ -51,3 +58,4 @@
 </div>
 
 {% endblock contenido %}
+

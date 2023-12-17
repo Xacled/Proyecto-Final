@@ -19,7 +19,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
-
+from colorthief import ColorThief
 def Home_Noticias(request):
     contexto = {}
     cat = Categoria.objects.all()
@@ -42,7 +42,7 @@ def Home_Noticias(request):
         todas = todas.order_by('-creado')
 
     # Implementar paginación
-    paginator = Paginator(todas, 5)  # Muestra 10 noticias por página
+    paginator = Paginator(todas, 5)  
     page = request.GET.get('page')
 
     try:
@@ -135,5 +135,3 @@ def megusta(request, pk):
     return redirect('/noticias/Detalle/'+str(noticia.id))
 
 ##############################COMENTARIOS
-
-
