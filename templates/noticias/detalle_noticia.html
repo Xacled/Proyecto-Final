@@ -19,6 +19,12 @@
   <p>Likes: {{ likes }}</p>
   <hr />
   <div>
+    {% if request.user.is_authenticated %}
+          {% if user.id == noticias.0.usuario.pk or user.is_colab %}
+          <a class="btn btn-primary" href="{% url 'noticias:modificar_noticia' noticia.pk %}">Modificar</a>
+          <a class="btn btn-primary" href="{% url 'noticias:borrar_noticia' noticia.pk %}">Borrar</a>
+          {% endif %}
+          {% endif %}
     <h3>Comentarios</h3>
     {% if request.user.is_authenticated %}
       <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}">
@@ -38,6 +44,14 @@
     {% endif %} {% endcomment %} {% for comentario in comentarios %}
       <p>{{ comentario.usuario.username }} - {{ comentario.contenido }} -
         {{ comentario.fecha_creacion }}</p>
+        {% if request.user.is_authenticated %}
+          {% if user.id == comentario.usuario.pk or user.is_colab %}
+          <a class="btn btn-primary" href="{% url 'comentarios:borrar_comentario' comentario.pk %}">Borrar</a>
+          {% endif %}
+          {% if user.id == comentario.usuario.pk%}
+          <a class="btn btn-primary" href="{% url 'comentarios:modificar_comentario' comentario.pk %}">Modificar</a>
+          {% endif %}
+          {% endif %}
       <hr />
     {% endfor %}
   </div>
