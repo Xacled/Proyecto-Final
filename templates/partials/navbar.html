@@ -37,7 +37,7 @@
                     </a>
                     <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
                       <li><a class="dropdown-item" href="{%url "usuarios:ver_perfil" request.user.username%}">Ver perfil</a></li>
-                      <li><a class="dropdown-item" href="#">Modificar perfil</a></li>
+                      <li><a class="dropdown-item" href="{% url 'usuarios:modificar_perfil' request.user.pk %}">Modificar perfil</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="#"><form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
