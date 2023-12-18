@@ -9,6 +9,7 @@ class Contacto(models.Model):
         ('problemas_tecnicos', 'Problemas técnicos'),
         ('sugerencias', 'Sugerencias'),
         ('publicidad', 'Publicidad'),
+        ('reportar','Reportar Usuario/Post'),
     ]
     razon = models.CharField(
         max_length=20,
