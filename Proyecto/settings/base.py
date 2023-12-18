@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'apps.noticias',
     'apps.usuarios',
     'ckeditor',
-    'apps.comentarios'
+    'apps.comentarios',
+    'apps.contacto',
 ]
 
 MIDDLEWARE = [

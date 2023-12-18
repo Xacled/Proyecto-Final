@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', views.Home, name ='Inicio'),
-    path('contacto', views.Contacto, name ='Contacto'),
+    path('contacto/', include('apps.contacto.urls'), name ='Contacto'),
 
     #APP NOTICIAS
     path('noticias/', include('apps.noticias.urls')),
