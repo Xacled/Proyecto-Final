@@ -32,11 +32,11 @@
                 <li class="nav-item dropdown pe-5">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         
-                        <img src="{{user.picture.url}}" alt="Imagen de perfil" class="rounded-circle" width="30" height="30" style="margin-right: 5px;">
-                        {{user.username}}
+                        <img src="{{request.user.picture.url}}" alt="Imagen de perfil" class="rounded-circle" width="30" height="30" style="margin-right: 5px;">
+                        {{request.user.username}}
                     </a>
                     <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="{%url "usuarios:ver_perfil" user.username%}">Ver perfil</a></li>
+                      <li><a class="dropdown-item" href="{%url "usuarios:ver_perfil" request.user.username%}">Ver perfil</a></li>
                       <li><a class="dropdown-item" href="#">Modificar perfil</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="#"><form method="post" action="{% url 'logout' %}">

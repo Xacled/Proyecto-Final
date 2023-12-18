@@ -2,6 +2,7 @@ from django.shortcuts import render ,get_object_or_404
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from apps.noticias.models import Noticia
+from apps.comentarios.models import Comentario
 from .forms import RegistroForm, Formulario_Modificar_Usuario
 from .models import CustomUser
 # Create your views here.
@@ -11,9 +12,11 @@ from .models import CustomUser
 def Ver_perfil(request, username):
     ctx = {}
     user = get_object_or_404(CustomUser, username=username)
-    noticias_user = Noticia.objects.filter(usuario = user)  # Obtén las 5 noticias más populares
+    noticias_user = Noticia.objects.filter(usuario = user)
+    comentarios_user = Comentario.objects.filter(usuario = user)  # Obtén las 5 noticias más populares
     ctx['noticias_user'] = noticias_user
     ctx['user'] = user
+    ctx['comentarios_user'] = comentarios_user
     return render(request, 'usuarios/perfil.html', ctx)
 
 
