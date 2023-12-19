@@ -12,3 +12,7 @@ def Contacto(request):
 
 	return render(request,'contacto.html')
 
+def Acercade(request):
+
+	return render(request,'info.html')
+
