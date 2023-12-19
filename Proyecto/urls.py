@@ -42,5 +42,5 @@ urlpatterns = [
         
     #APP Comentarios
     path('Comentarios/', include('apps.comentarios.urls')),
-    path('acercade' , name='acercade') , 
+    path('acercade/' , views.Acercade ,  name='acercade') , 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
