@@ -63,7 +63,7 @@ def Home_Noticias(request):
         noticias = paginator.page(1)
     except EmptyPage:
         noticias = paginator.page(paginator.num_pages)
-
+    
     contexto['noticias'] = noticias
     return render(request, 'noticias/home_noticias.html', contexto)
 
@@ -92,7 +92,7 @@ class Modificar_noticia(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         # Verifica si el usuario actual tiene permisos para editar la noticia
         noticia = self.get_object()
-        return self.request.user == noticia.usuario or self.request.user.is_staff
+        return self.request.user == noticia.usuario or self.request.user.is_colab
 
     def handle_no_permission(self):
         # Obtiene el objeto noticia para redirigir al detalle de la noticia
@@ -111,7 +111,7 @@ class Borrar_noticia(DeleteView):
         noticia = self.get_object()
 
         # Verificar que el usuario que realiza la acción sea el propietario de la noticia
-        if request.user == noticia.usuario or request.user.is_staff:
+        if request.user == noticia.usuario or request.user.is_colab:
             messages.success(request, 'Noticia eliminada exitosamente.')
             return super().delete(request, *args, **kwargs)
         else:

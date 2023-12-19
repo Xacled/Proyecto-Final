@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
+<div class="mx-auto text-center">
   <h2>Modificar Noticia</h2>
   {% if user.is_authenticated %}
     {% if user.id == noticia.usuario.pk or user.is_colab %}
       <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.media }}
-        {{ form.as_p }}
-        <button type="submit">Guardar cambios</button>
+          {% csrf_token %}
+          {{form.media}}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
+    </div>
     {% endif %}
   {% endif %}
 {% endblock %}

@@ -28,7 +28,7 @@
             <div class="card-body">
               <div class="small text-muted">{{ n.creado }}--{{ n.categoria }}</div>
               <h2 class="card-title h4">{{ n.titulo }}</h2>
-              <p class="card-text">{{ n.contenido|striptags|truncatechars:100 }}</p>
+              <p class="card-text">{{ n.contenido|striptags|linebreaksbr|truncatechars:100|safe }}</p>
               <a class="btn btn-primary border shadow gradient-custom-2 mb-3" href="{% url 'noticias:detalle_noticia' n.pk %}">Leer más</a>
             </div>
           </div>

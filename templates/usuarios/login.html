@@ -22,12 +22,14 @@
                     <input type="text" class="form-control" id="{{form.username.id}}" name="username"
                       placeholder="Usuario" />
                     {{form.username.errors}}
+                    
                   </div>
                   <div class="form-outline mb-4">
                     <label for="{{form.contrasena.usuario}}">Contraseña</label>
                     <input type="password" class="form-control" id="{{form.contrasena.id}}" name="password"
                       placeholder="Contraseña" />
                     {{form.contrasena.errors}}
+                   
                   </div>
                   {% if form.non_field_errors %}
                   <div class="form-outline mb-4">
@@ -41,7 +43,7 @@
                     <button class="btn btn-primary border shadow gradient-custom-2 mb-3" value="ENVIAR" type="submit">
                       Iniciar Sesión
                     </button>
-                    <!-- <a class="text-muted" href="#!">Forgot password?</a> -->
+                    <a class="text-muted" href="{%url 'password_reset' %}">Recuperar contraseña</a>
                   </div>
 
                   <div class="d-flex align-items-center justify-content-center pb-4">
