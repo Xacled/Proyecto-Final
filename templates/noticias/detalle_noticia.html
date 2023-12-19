@@ -1,110 +1,113 @@
-{% extends 'base.html' %} {% block contenido %}
-  <header class="mosthead w-100 img-fluid position-relative" style="background-image: url('{{ noticia.imagen.url }}'); object-fit: cover;">
-    <div class="overlay"></div>
-    <div class="container position-relative px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-          <div class="post-heading text-center">
-            <h1 class="fw-bolder text-center" style="color: rgb(243, 243, 243);">{{ noticia.titulo }}</h1>
-          </div>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<header class="mosthead w-100 img-fluid position-relative"
+  style="background-image: url('{{ noticia.imagen.url }}'); object-fit: cover;">
+  <div class="overlay"></div>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="post-heading text-center">
+          <h1 class="fw-bolder text-center" style="color: rgb(243, 243, 243);">{{ noticia.titulo }}</h1>
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <article class="mb-4">
-    <div class="container px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-          <p>{{ noticia.contenido|safe }}</p>
-          <span class="meta">
-            Publicado por
-            <a class="text-decoration-none" href="#!"><strong>{{ user.username }}</strong></a>
-            {{ noticia.creado }}
-          </span>
-        </div>
-      </div>
-    </div>
-  </article>
-
-  <a href="{% url 'noticias:megusta' noticia.pk %}">
-    {% if checklike %}
-      Dislike
-    {% else %}
-      Like
-    {% endif %}
-  </a>
-  <p>Likes: {{ likes }}</p>
-  <hr />
-  <div>
-    {% if request.user.is_authenticated %}
-      {% if user.id == noticias.usuario.pk or user.is_colab %}
-        <a class="btn btn-primary border shadow gradient-custom-2 mb-3" href="{% url 'noticias:modificar_noticia' noticia.pk %}">Editar</a>
-        <a class="btn btn-primary border shadow gradient-custom-2 mb-3" href="{% url 'noticias:borrar_noticia' noticia.pk %}">Eliminar</a>
-      {% endif %}
-    {% endif %}
-    <div id="comment-section">
-      <h2>Comentarios</h2>
-      {% if request.user.is_authenticated %}
-        <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}">
-          {% csrf_token %}
-          <textarea name="comentario"></textarea>
-          <input type="submit" name="" value="COMENTAR" />
-        </form>
-      {% endif %}
-      <hr />
-      {% comment %} {% if user.is_authenticated %}
-        <form method="post" action="">
-          {% csrf_token %} {{ comentario_form.as_p }}
-          <button type="submit">Comentar</button>
-        </form>
-      {% else %}
-        <h3>Incia sesion o registrate para comentar!</h3>
-      {% endif %} {% endcomment %} {% for comentario in comentarios %}
-        <div class="comment">
-          <div class="comment-author">
-            <img src="{{comentario.usuario.picture.url}}" alt="Imagen de perfil" class="rounded-circle" width="30" height="30" style="margin-right: 5px;">
-            <a href="{% url 'usuarios:ver_perfil' comentario.usuario.username %}">{{ comentario.usuario.username }}</a>
-          </div>
-          <div class="comment-date">{{ comentario.fecha_creacion }}</div>
-          <p>{{ comentario.contenido }}</p>
-          {% if request.user.is_authenticated %}
-            {% if user.id == comentario.usuario.pk or user.is_colab %}
-              <a class="btn btn-primary border shadow gradient-custom-2 mb-3" href="{% url 'comentarios:borrar_comentario' comentario.pk %}">Eliminar</a>
-            {% endif %}
-            {% if user.id == comentario.usuario.pk %}
-              <a class="btn btn-primary border shadow gradient-custom-2 mb-3" href="{% url 'comentarios:modificar_comentario' comentario.pk %}">Editar</a>
-            {% endif %}
+<article class="mb-4">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <p>{{ noticia.contenido|safe }}</p>
+        <span class="meta">
+          Publicado por
+          {% if noticia.usuario %}
+            <a class="text-decoration-none" href="{% url 'usuarios:ver_perfil' noticia.usuario.username %}">
+              <strong>{{ noticia.usuario.username }}</strong>
+            </a>
+          {% else %}
+            <strong>Admin</strong>
           {% endif %}
-        </div>
-
-        <hr />
-      {% endfor %}
+          el {{ noticia.creado }}
+        </span>
+      </div>
     </div>
+  </div>
+</article>
 
-    <!-- Puedes repetir este bloque para cada comentario -->
 
-    <!-- Formulario para agregar comentarios -->
-  <style>
-    #comment-section {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .comment {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-bottom: 15px;
-    }
-    
-    .comment-author {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    
-    .comment-date {
-      font-size: 0.8em;
-      color: #888;
-    }
-  </style>
-{% endblock %}
+<a href="{% url 'noticias:megusta' noticia.pk %}">
+  {% if checklike %}
+  Dislike
+  {% else %}
+  Like
+  {% endif %}
+</a>
+<p>Likes: {{ likes }}</p>
+<hr />
+<div>
+  {% if request.user.is_authenticated %}
+  {% if user.id == noticias.usuario.pk or user.is_colab %}
+  <form method="post" action="{% url 'noticias:borrar_noticia' noticia.pk %}" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" class="text-decoration-none text-danger border-0 bg-transparent"
+      onclick="return confirmarEliminarNoticia()">Eliminar</button>
+  </form>
+  <a class="text-decoration-none text-danger" href="{% url 'noticias:modificar_noticia' noticia.pk %}">Editar</a>
+  {% endif %}
+  {% endif %}
+
+  <section class="mb-5">
+    <div class="card bg-light">
+        <div class="card-body">
+
+            <!-- Mostrar los comentarios existentes -->
+            {% for comentario in comentarios %}
+                <div class="d-flex mb-4">
+                    <div class="flex-shrink-0">
+                        <img class="rounded-circle" src="{{comentario.usuario.picture.url}}"
+                            alt="Imagen de perfil" width="50" height="50" style="margin-right: 5px;">
+                    </div>
+                    <div class="ms-3">
+                        <div class="fw-bold">{{ comentario.usuario.username }}</div>
+                        {{ comentario.contenido }}
+
+                        <div class="mt-2">
+                            {% if user.is_authenticated %}
+                                {% if user.id == comentario.usuario.pk or user.is_colab %}
+                                    <form method="post"
+                                        action="{% url 'comentarios:borrar_comentario' comentario.pk %}"
+                                        style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                            class="btn btn-link text-danger text-decoration-none">Eliminar</button>
+                                    </form>
+                                {% endif %}
+                                {% if user.id == comentario.usuario.pk %}
+                                    <a class="btn btn-link text-danger text-decoration-none"
+                                        href="{% url 'comentarios:modificar_comentario' comentario.pk %}">Editar</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}" class="mb-4">
+                    {% csrf_token %}
+                    <textarea name="comentario" class="form-control" rows="3" placeholder="Deja tu comentario"></textarea>
+                    <button type="submit" class="btn btn-primary">Comentar</button>
+                </form>
+            {% else %}
+                <p>Debes estar registrado para dejar un comentario.</p>
+                <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+
+
+  {% endblock %}

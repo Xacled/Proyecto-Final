@@ -20,26 +20,31 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from colorthief import ColorThief
+
 def Home_Noticias(request):
     contexto = {}
-    cat = Categoria.objects.all()
-    contexto['categorias'] = cat
 
-    filtro = request.GET.get('categoria', None)
-    orden = request.GET.get('orden', None)
+    # Obtén la lista de categorías
+    contexto['categorias'] = Categoria.objects.all()
 
-    if not filtro or filtro == '0':
-        todas = Noticia.objects.all()
-    else:
+    # Obtén el filtro de categoría y orden desde la URL
+    filtro = request.GET.get('categoria', '0')
+    orden = request.GET.get('orden', '-creado')
+    busqueda = request.GET.get('q', '')
+
+    # Filtra las noticias según la categoría seleccionada
+    if filtro and filtro != '0':
         categoria_seleccionada = Categoria.objects.get(pk=filtro)
         todas = Noticia.objects.filter(categoria=categoria_seleccionada)
-
-    if orden == 'visitas':
-        todas = todas.order_by('-visitas')
-    elif orden == 'likes':
-        todas = todas.order_by('-likes')
     else:
-        todas = todas.order_by('-creado')
+        todas = Noticia.objects.all()
+
+    # Aplica la búsqueda en el título y el contenido
+    if busqueda:
+        todas = todas.filter(titulo__icontains=busqueda) | todas.filter(contenido__icontains=busqueda)
+
+    # Ordena las noticias según el criterio de orden seleccionado
+    todas = todas.order_by(orden)
 
     # Implementar paginación
     paginator = Paginator(todas, 5)  
@@ -57,27 +62,6 @@ def Home_Noticias(request):
     contexto['noticias'] = noticias
     return render(request, 'noticias/home_noticias.html', contexto)
 
-
-# ACLARACION
-'''
-si bien en la vista armo un diccionario del tipo
-{noticias: todas_noticias, fecha: '28-11-2023'}
-en el template resivo variables separadas, una por cada clave, la cual contiene como valor
-el valor de la clave
-EJ, recibo 2 variales distintas, cuyo nombre es igual a la clave
-noticias = todas_noticias
-fecha = '28-11-2023'
-'''
-
-# VISTA BASADA EN CLASE
-
-
-class Home_Noticias_clase(ListView):
-    model = Noticia
-    template_name = 'noticias/home_noticias.html'
-    context_object_name = 'noticias'
-
-
 class Cargar_noticia(CreateView):
     model = Noticia
     template_name = 'noticias/cargar_noticia.html'
@@ -94,21 +78,20 @@ class Modificar_noticia(UpdateView):
 
 class Borrar_noticia(DeleteView):
     model = Noticia
-    success_url = reverse_lazy('noticias:home_noticias')
 
-# ORM
-# CONSULTA PARA TRAER TODOS LOS DATOS
-# select * from Noticia  SQL
-# Noticia.objects.all()   ORM
+    def get_success_url(self):
+        return reverse_lazy('noticias:home_noticias')
 
-# CONSuLTA PARA TRAER SOLO UN DATO (POR CLAVE)
-# select * from Noticia where id = algo    SQL
-# Noticia.objects.get(id = algo)		ORM
+    def delete(self, request, *args, **kwargs):
+        noticia = self.get_object()
 
-# CONSuLTA PARA TRAER SOLO Algunos datos (POR filtro)
-# select * from Noticia where categororia = deportes
-# Noticia.objects.filter(categoria = deportes)
-
+        # Verificar que el usuario que realiza la acción sea el propietario de la noticia
+        if request.user == noticia.usuario or request.user.is_staff:
+            messages.success(request, 'Noticia eliminada exitosamente.')
+            return super().delete(request, *args, **kwargs)
+        else:
+            messages.error(request, 'No tienes permisos para eliminar esta noticia.')
+            return HttpResponseRedirect(self.get_success_url())
 
 def Detalle_noticia(request, pk):
     ctx = {}
@@ -134,4 +117,4 @@ def megusta(request, pk):
         noticia.likes.add(request.user.id)
     return redirect('/noticias/Detalle/'+str(noticia.id))
 
-##############################COMENTARIOS
+

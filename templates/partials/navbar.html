@@ -12,7 +12,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto justify-content-center">
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'Inicio' %}">Inicio</a>
@@ -32,7 +32,7 @@
                 <li class="nav-item dropdown pe-5">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         
-                        <img src="{{request.user.picture.url}}" alt="Imagen de perfil" class="rounded-circle" width="30" height="30" style="margin-right: 5px;">
+                        <img src="{{request.user.picture.url}}" alt="Imagen de perfil" class="rounded-circle" width="35" height="35" style="margin-right: 5px;">
                         {{request.user.username}}
                     </a>
                     <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
