@@ -17,15 +17,14 @@
       </head>
 
       <body>
-<<<<<<< HEAD
-=======
-        {%if request.path != '/login/'%}
->>>>>>> b05d2b4670b2db2d2ae99b07463623b4eaff3291
+        {%if request.path != '/login/' and request.path != '/reset_password/' and request.path != '/reset_password_sent/' %}
         {% include "partials/navbar.html" %}
         <section class="mt-5 p-1 mb-5 "></section>
+        
         {%endif%}
-        {% block contenido %} {% endblock contenido %}
-        {%if request.path != '/login/'%}
+        {% block contenido %} 
+        {% endblock contenido %}
+        {%if request.path != '/login/' and request.path != '/reset_password/' and request.path != '/reset_password_sent/' %}
         {% include "partials/footer.html" %}
         {%endif%}
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
