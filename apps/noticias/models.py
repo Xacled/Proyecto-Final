@@ -22,7 +22,7 @@ class Noticia(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     visitas = models.PositiveIntegerField(default=0)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="not_megustas", blank=True)
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,blank=True,null=True)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,blank=False,null=False)
     def count_likes(self):
         return self.likes.count()
 

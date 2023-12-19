@@ -21,13 +21,20 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from colorthief import ColorThief
 
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import UpdateView
+from .forms import Formulario_Modificar_Noticia
+from .models import Noticia
+from django.shortcuts import redirect
+
 def Home_Noticias(request):
     contexto = {}
 
-    # Obtén la lista de categorías
     contexto['categorias'] = Categoria.objects.all()
 
-    # Obtén el filtro de categoría y orden desde la URL
+    # Obtiene el filtro de categoría y orden desde la URL
     filtro = request.GET.get('categoria', '0')
     orden = request.GET.get('orden', '-creado')
     busqueda = request.GET.get('q', '')
@@ -53,27 +60,45 @@ def Home_Noticias(request):
     try:
         noticias = paginator.page(page)
     except PageNotAnInteger:
-        # Si la página no es un número entero, muestra la primera página
         noticias = paginator.page(1)
     except EmptyPage:
-        # Si la página está fuera de rango, muestra la última página disponible
         noticias = paginator.page(paginator.num_pages)
 
     contexto['noticias'] = noticias
     return render(request, 'noticias/home_noticias.html', contexto)
 
-class Cargar_noticia(CreateView):
+class Cargar_noticia(LoginRequiredMixin,CreateView):
     model = Noticia
     template_name = 'noticias/cargar_noticia.html'
     form_class = Formulario_Noticia
     success_url = reverse_lazy('noticias:home_noticias')
+    def form_valid(self, form):
+    # Asocia el usuario actual al campo 'usuario' de la noticia antes de guardarla
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
 
 
-class Modificar_noticia(UpdateView):
+class Modificar_noticia(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Noticia
     template_name = 'noticias/modificar_noticia.html'
     form_class = Formulario_Modificar_Noticia
     success_url = reverse_lazy('noticias:home_noticias')
+
+    def form_valid(self, form):
+        # Asocia el usuario actual al campo 'usuario' de la noticia antes de guardarla
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        # Verifica si el usuario actual tiene permisos para editar la noticia
+        noticia = self.get_object()
+        return self.request.user == noticia.usuario or self.request.user.is_staff
+
+    def handle_no_permission(self):
+        # Obtiene el objeto noticia para redirigir al detalle de la noticia
+        noticia = self.get_object()
+        return redirect('noticias:detalle_noticia', pk=noticia.pk)
+
 
 
 class Borrar_noticia(DeleteView):

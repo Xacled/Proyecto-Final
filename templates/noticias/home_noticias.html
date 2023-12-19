@@ -7,7 +7,7 @@
       {% if noticias %}
       <div class="card mb-4">
         <a href="{% url 'noticias:detalle_noticia' noticias.0.pk %}"><img class="card-img-top"
-            style="width: 100%; height: 350px" src="{{ noticias.0.imagen.url }}" alt="..." /></a>
+            style="width: 100%; height: 350px" src="{{ noticias.0.imagen.url }}" /></a>
         <div class="card-body">
           <div class="small text-muted">{{ noticias.0.creado }}--{{ noticias.0.categoria }}</div>
           <h2 class="card-title">{{ noticias.0.titulo }}</h2>
@@ -114,11 +114,7 @@
             </div>
           </div>
         </div>
-      </div>
-
-
-      <!-- Other widgets (e.g., Side Widget) -->
-      
+      </div>      
       {% if user.is_authenticated %}
       <div class="card mb-4">
         <div class="card-header {% if request.path == url %}active{% endif %} text-center"><a class="nav-link" href="{% url 'noticias:cargar_noticia' %}">Publicar Noticia</a></div>

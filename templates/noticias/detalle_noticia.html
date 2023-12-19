@@ -23,13 +23,10 @@
         <p>{{ noticia.contenido|safe }}</p>
         <span class="meta">
           Publicado por
-          {% if noticia.usuario %}
-            <a class="text-decoration-none" href="{% url 'usuarios:ver_perfil' noticia.usuario.username %}">
-              <strong>{{ noticia.usuario.username }}</strong>
+          <a class="text-decoration-none" href="{% url 'usuarios:ver_perfil' noticia.usuario %}"> 
+              <strong>{{ noticia.usuario }}</strong>
             </a>
-          {% else %}
-            <strong>Admin</strong>
-          {% endif %}
+                 
           el {{ noticia.creado }}
         </span>
       </div>
@@ -48,16 +45,17 @@
 <p>Likes: {{ likes }}</p>
 <hr />
 <div>
-  {% if request.user.is_authenticated %}
-  {% if user.id == noticias.usuario.pk or user.is_colab %}
-  <form method="post" action="{% url 'noticias:borrar_noticia' noticia.pk %}" style="display: inline;">
-    {% csrf_token %}
-    <button type="submit" class="text-decoration-none text-danger border-0 bg-transparent"
-      onclick="return confirmarEliminarNoticia()">Eliminar</button>
-  </form>
-  <a class="text-decoration-none text-danger" href="{% url 'noticias:modificar_noticia' noticia.pk %}">Editar</a>
+{% if request.user.is_authenticated %}
+  {% if user.id == noticia.usuario.pk or user.is_colab %}
+    <form method="post" action="{% url 'noticias:borrar_noticia' noticia.pk %}" style="display: inline;">
+      {% csrf_token %}
+      <button type="submit" class="text-decoration-none text-danger border-0 bg-transparent"
+        onclick="return confirmarEliminarNoticia()">Eliminar</button>
+    </form>
+    <a class="text-decoration-none text-danger" href="{% url 'noticias:modificar_noticia' noticia.pk %}">Editar</a>
   {% endif %}
-  {% endif %}
+{% endif %}
+
 
   <section class="mb-5">
     <div class="card bg-light">
@@ -82,7 +80,7 @@
                                         style="display: inline;">
                                         {% csrf_token %}
                                         <button type="submit"
-                                            class="btn btn-link text-danger text-decoration-none">Eliminar</button>
+                                            class="btn btn-link text-danger text-decoration-none" onclick="return confirmarEliminarComentario()" >Eliminar</button>
                                     </form>
                                 {% endif %}
                                 {% if user.id == comentario.usuario.pk %}
