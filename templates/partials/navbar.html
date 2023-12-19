@@ -25,6 +25,10 @@
                     <a class="nav-link {% if request.path == '/contacto' %}active{% endif %}"
                         href="{% url 'contacto:cargar_contacto' %}">Contacto</a>
                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/acercade' %}active{% endif %}"
+                        href="{% url 'acercade' %}">Acerca de</a>
+                </li>
             </ul>
 
             <ul class="navbar-nav  py-4 py-lg-0">
