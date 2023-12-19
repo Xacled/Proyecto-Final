@@ -17,13 +17,15 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}" />
       </head>
 
-      <body style="margin-top: 10px;">
+      <body>
+        {%if request.path != '/login/'%}
         {% include "partials/navbar.html" %}
-        <section class="mt-5 p-1 mb-2"></section>
-
+        <section class="mt-5 p-1 mb-5 "></section>
+        {%endif%}
         {% block contenido %} {% endblock contenido %}
+        {%if request.path != '/login/'%}
         {% include "partials/footer.html" %}
-        
+        {%endif%}
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
           integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
           crossorigin="anonymous"></script>

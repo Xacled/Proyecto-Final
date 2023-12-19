@@ -12,15 +12,16 @@
                   {% csrf_token %}
                   <p class="fw-bold text-center">Registrese, por favor</p>
 
-                  <div class="form-outline mb-4 text-center">
+                  <div class="form-outline mb-4 text-start">
                     {% for field in form %}
-                      <div class="form-label">{{ field.label_tag }}</div>
+                      <div class="form-label text-start">{{ field.label_tag }}</div>
                       <div class="">{{ field }}</div>
                       {% comment %} {% if field.help_text %}
                       <small style="color: grey">{{ field.help_text }}</small>
                       {% endif %} {% endcomment %} 
                       {% for error in field.errors %}
                       <p style="color: red">{{ error }}</p>
+                      <p style="color: red">{{ help }}</p>
                       {% endfor %} 
                     {% endfor %}
                   </div>
@@ -34,7 +35,11 @@
                     <p class="mb-0 me-2">Ya tienes una cuenta?</p>
                     <a type="button" class="btn shadow btn-outline-danger opacity-60" href="{% url 'login'%}">Inicia
                       Sesión</a>
-                  </div>
+                    </div>
+                    <div class="text-center">
+
+                      <a class="text-muted" href="{%url 'password_reset' %}">Recuperar contraseña</a>
+                    </div>
                 </form>
               </div>
             </div>

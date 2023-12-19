@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'apps.comentarios',
     'apps.contacto',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

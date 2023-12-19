@@ -7,7 +7,8 @@ from .forms import ComentarioModificacion
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404,redirect
+
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
@@ -37,7 +38,6 @@ class BorrarComentario(LoginRequiredMixin, DeleteView):
 
 
 
-from django.shortcuts import redirect
 
 @method_decorator(login_required, name='dispatch')
 class ModificaComentario(UpdateView):
