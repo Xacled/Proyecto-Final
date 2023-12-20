@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block contenido%}
+{% block contenido %}
   <header class="mosthead w-100 img-fluid position-relative" style="background-image: url('{{ noticia.imagen.url }}'); object-fit: cover;">
     <div class="overlay"></div>
     <div class="container position-relative px-4 px-lg-5">
@@ -21,15 +21,13 @@
           <p>{{ noticia.contenido|safe }}</p>
           <span class="meta">
             Publicado por
-            <a class="text-decoration-none" href="{% url 'usuarios:ver_perfil' noticia.usuario %}"> 
-                <strong>{{ noticia.usuario }}</strong>
-              </a>
-                  
+            <a class="text-decoration-none" href="{% url 'usuarios:ver_perfil' noticia.usuario %}"><strong>{{ noticia.usuario }}</strong></a>
+
             el {{ noticia.creado }} - <a href="{% url 'noticias:megusta' noticia.pk %}" class="text-decoration-none">
               {% if checklike %}
-              <i class="fa fa-heart" ></i>
+                <i class="fa fa-heart"></i>
               {% else %}
-              <i class="fa fa-heart-o" ></i>
+                <i class="fa fa-heart-o"></i>
               {% endif %}
             </a>
             {{ likes }}
@@ -38,8 +36,7 @@
             {% if user.id == noticia.usuario.pk or user.is_colab %}
               <form method="post" action="{% url 'noticias:borrar_noticia' noticia.pk %}" style="display: inline;">
                 {% csrf_token %}
-                <button type="submit" class="text-decoration-none text-danger border-0 bg-transparent"
-                  onclick="return confirmarEliminarNoticia()">Eliminar</button>
+                <button type="submit" class="text-decoration-none text-danger border-0 bg-transparent" onclick="return confirmarEliminarNoticia()">Eliminar</button>
               </form>
               <a class="text-decoration-none text-danger" href="{% url 'noticias:modificar_noticia' noticia.pk %}">Editar</a>
             {% endif %}
@@ -49,54 +46,46 @@
     </div>
   </article>
   <hr />
-    <section class="mb-5">
-      <div class="card bg-light">
-          <div class="card-body">
-              {% for comentario in comentarios %}
-                  <div class="d-flex mb-4">
-                      <div class="flex-shrink-0">
-                          <img class="rounded-circle" src="{{comentario.usuario.picture.url}}"
-                              alt="Imagen de perfil" width="50" height="50" style="margin-right: 5px;">
-                      </div>
-                      <div class="ms-3">
-                          <div class="fw-bold">{{ comentario.usuario.username }}</div>
-                          {{ comentario.contenido }}
-                          <div class="mt-2">
-                            <small>Publicado hace {{comentario.fecha_creacion|timesince}}</small>
-                            
-                              {% if user.is_authenticated %}
-                                  {% if user.id == comentario.usuario.pk or user.is_colab %}
-                                      <form method="post"
-                                          action="{% url 'comentarios:borrar_comentario' comentario.pk %}"
-                                          style="display: inline;">
-                                          {% csrf_token %}
-                                          <button type="submit"
-                                              class="btn btn-link text-danger text-decoration-none" onclick="return confirmarEliminarComentario()" >Eliminar</button>
-                                      </form>
-                                  {% endif %}
-                                  {% if user.id == comentario.usuario.pk %}
-                                      <a class="btn btn-link text-danger text-decoration-none"
-                                          href="{% url 'comentarios:modificar_comentario' comentario.pk %}">Editar</a>
-                                  {% endif %}
-                              {% endif %}
-                          </div>
-                      </div>
-                  </div>
-              {% endfor %}
-              {% if user.is_authenticated %}
-                  <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}" class="mb-4">
+  <section class="mb-5">
+    <div class="card bg-light">
+      <div class="card-body">
+        {% for comentario in comentarios %}
+          <div class="d-flex mb-4">
+            <div class="flex-shrink-0">
+              <img class="rounded-circle" src="{{ comentario.usuario.picture.url }}" alt="Imagen de perfil" width="50" height="50" style="margin-right: 5px;" />
+            </div>
+            <div class="ms-3">
+              <div class="fw-bold">{{ comentario.usuario.username }}</div>
+              {{ comentario.contenido }}
+              <div class="mt-2">
+                <small>Publicado hace {{ comentario.fecha_creacion|timesince }}</small>
+
+                {% if user.is_authenticated %}
+                  {% if user.id == comentario.usuario.pk or user.is_colab %}
+                    <form method="post" action="{% url 'comentarios:borrar_comentario' comentario.pk %}" style="display: inline;">
                       {% csrf_token %}
-                      <textarea name="comentario" class="form-control" rows="3" placeholder="Deja tu comentario"></textarea>
-                      <button type="submit" class="btn btn-primary mt-3">Comentar</button>
-                  </form>
-              {% else %}
-                  <p>Debes estar registrado para dejar un comentario.</p>
-                  <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
-              {% endif %}
-
+                      <button type="submit" class="btn btn-link text-danger text-decoration-none" onclick="return confirmarEliminarComentario()">Eliminar</button>
+                    </form>
+                  {% endif %}
+                  {% if user.id == comentario.usuario.pk %}
+                    <a class="btn btn-link text-danger text-decoration-none" href="{% url 'comentarios:modificar_comentario' comentario.pk %}">Editar</a>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
           </div>
+        {% endfor %}
+        {% if user.is_authenticated %}
+          <form method="POST" action="{% url 'comentarios:agregar' noticia.pk %}" class="mb-4">
+            {% csrf_token %}
+            <textarea name="comentario" class="form-control" rows="3" placeholder="Deja tu comentario"></textarea>
+            <button type="submit" class="btn btn-primary mt-3">Comentar</button>
+          </form>
+        {% else %}
+          <p>Debes estar registrado para dejar un comentario.</p>
+          <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
+        {% endif %}
       </div>
+    </div>
   </section>
-
-
 {% endblock %}
