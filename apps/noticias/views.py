@@ -89,10 +89,10 @@ class Borrar_noticia(DeleteView):
         noticia = self.get_object()
 
         if request.user == noticia.usuario or request.user.is_colab:
-            messages.success(request, "Noticia eliminada exitosamente.")
+            
             return super().delete(request, *args, **kwargs)
         else:
-            messages.error(request, "No tienes permisos para eliminar esta noticia.")
+            
             return HttpResponseRedirect(self.get_success_url())
 
 
