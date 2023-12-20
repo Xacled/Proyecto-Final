@@ -1,64 +1,63 @@
-{% load static%}
+{% load static %}
 
-<nav class="navbar fw-bolder navbar-expand-lg bg-body-tertiary fixed-top nav-underline ">
-    <div class="container-fluid">
-        <a class="navbar-brand ps-5" href="{% url 'Inicio' %}">
-            <img src="{% static 'img/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
-            Blogsito
-        </a>
+<nav class="navbar fw-bolder navbar-expand-lg bg-body-tertiary fixed-top nav-underline">
+  <div class="container-fluid">
+    <a class="navbar-brand ps-5" href="{% url 'Inicio' %}">
+      <img src="{% static 'img/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
+      Blogsito
+    </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'Inicio' %}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/noticias/' %}active{% endif %}"
-                        href="{% url 'noticias:home_noticias' %}">Noticias</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/contacto' %}active{% endif %}"
-                        href="{% url 'contacto:cargar_contacto' %}">Contacto</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/acercade' %}active{% endif %}"
-                        href="{% url 'acercade' %}">Acerca de</a>
-                </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/' %}{% endif %}" href="{% url 'Inicio' %}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/noticias/' %}{% endif %}" href="{% url 'noticias:home_noticias' %}">Noticias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/contacto' %}{% endif %}" href="{% url 'contacto:cargar_contacto' %}">Contacto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/acercade' %}{% endif %}" href="{% url 'acercade' %}">Acerca de</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav py-4 py-lg-0">
+        {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown pe-5">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{ request.user.picture.url }}" alt="Imagen de perfil" class="rounded-circle" width="35" height="35" style="margin-right: 5px;" />
+              {{ request.user.username }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="{% url 'usuarios:ver_perfil' request.user.username %}">Ver perfil</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'usuarios:modificar_perfil' request.user.pk %}">Modificar perfil</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-sm border shadow gradient-custom-2 d-none d-sm-block align-text-top">Cerrar sesión</button>
+                  </form>
+                </a>
+              </li>
             </ul>
-
-            <ul class="navbar-nav  py-4 py-lg-0">
-                {% if request.user.is_authenticated %}
-                <li class="nav-item dropdown pe-5">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        
-                        <img src="{{request.user.picture.url}}" alt="Imagen de perfil" class="rounded-circle" width="35" height="35" style="margin-right: 5px;">
-                        {{request.user.username}}
-                    </a>
-                    <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="{%url "usuarios:ver_perfil" request.user.username%}">Ver perfil</a></li>
-                      <li><a class="dropdown-item" href="{% url 'usuarios:modificar_perfil' request.user.pk %}">Modificar perfil</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#"><form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary btn-sm border shadow gradient-custom-2 d-none d-sm-block align-text-top">
-                            Cerrar sesión
-                        </button>
-                    </form></a></li>
-                    </ul>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a href="{% url 'login'%}" class="btn btn-primary btn-sm border shadow gradient-custom-2 d-none d-sm-block align-text-top">
-                        Inicia Sesión
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="{% url 'login' %}" class="btn btn-primary btn-sm border shadow gradient-custom-2 d-none d-sm-block align-text-top">Inicia Sesión</a>
+          </li>
+        {% endif %}
+      </ul>
     </div>
+  </div>
 </nav>

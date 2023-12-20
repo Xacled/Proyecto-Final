@@ -1,35 +1,32 @@
 from django.shortcuts import render
 from apps.noticias.models import Noticia
 from django.contrib.auth.views import PasswordResetView
-from django.urls import reverse
-from django.http import HttpResponseRedirect
-from apps.usuarios.models import CustomUser  # Ajusta esta importación
+from apps.usuarios.models import CustomUser
+
 
 def Home(request):
-	ctx = {}
-	noticias_populares = Noticia.objects.order_by('-visitas')[:3]  # Obtén las 5 noticias más populares
-	ctx['noticias_populares'] = noticias_populares
-	return render(request, 'home.html', ctx)
+    ctx = {}
+    noticias_populares = Noticia.objects.order_by("-visitas")[:3]
+    ctx["noticias_populares"] = noticias_populares
+    return render(request, "home.html", ctx)
 
 
 def Contacto(request):
+    return render(request, "contacto.html")
 
-	return render(request,'contacto.html')
 
 def Acercade(request):
+    return render(request, "info.html")
 
-	return render(request,'info.html')
-
-# en views.py de tu aplicación principal
 
 class CustomPasswordResetView(PasswordResetView):
     def form_valid(self, form):
-        # Verifica si el correo electrónico está registrado
-        email = form.cleaned_data['email']
-        if not CustomUser.objects.filter(email=email).exists():  # Ajusta esta línea
-            # Si no está registrado, redirige a una página personalizada de error
-            form.add_error('email', 'El correo electrónico no está registrado. Por favor, regístrate para crear una cuenta.')
+        email = form.cleaned_data["email"]
+        if not CustomUser.objects.filter(email=email).exists():
+            form.add_error(
+                "email",
+                "El correo electrónico no está registrado. Por favor, regístrate para crear una cuenta.",
+            )
             return self.form_invalid(form)
 
-        # Si el correo está registrado, continúa con la lógica predeterminada
         return super().form_valid(form)
