@@ -1,14 +1,16 @@
 {% extends 'base.html' %} {% load static %} {% block contenido %}
-  <p>modificar perfil</p>
-  {% comment %} <p>{{request.user.id}} - {{object.id}}</p> {% endcomment %}
+<div class="mx-auto text-center">
+<h3>MODIFICAR PERFIL</h3>
+  
   {% if request.user.is_authenticated %}
     {%if request.user.id ==  object.id%}
       <form method="post" enctype="multipart/form-data" >
         {% csrf_token %} {{ form.as_p }}
-        <button type="submit">Guardar cambios</button>
+        <button type="submit" class="btn btn-primary mb-4">Confirmar</button>
       </form>
       {% else %}
       <h1>usuario incorrecto</h1>
       {% endif %}
       {% endif %}
+    </div>
 {% endblock %}

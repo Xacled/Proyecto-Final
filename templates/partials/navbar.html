@@ -2,9 +2,9 @@
 
 <nav class="navbar fw-bolder navbar-expand-lg bg-body-tertiary fixed-top nav-underline ">
     <div class="container-fluid">
-        <a class="navbar-brand ps-5" href="{% url 'Inicio' %}">
-            <img src="{% static 'img/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
-            Blogsito
+        <a class="navbar-brand ps-1" href="{% url 'Inicio' %}">
+            <img src="{% static 'img/logo.ico' %}" alt="Logo" /> 
+            Portal Climatico
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -13,7 +13,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto justify-content-center">
+            <ul class="navbar-nav mx-auto justify-content-center pe-5">
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'Inicio' %}">Inicio</a>
                 </li>
@@ -22,16 +22,16 @@
                         href="{% url 'noticias:home_noticias' %}">Noticias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/contacto' %}active{% endif %}"
+                    <a class="nav-link {% if request.path == '/contacto/' %}active{% endif %}"
                         href="{% url 'contacto:cargar_contacto' %}">Contacto</a>
                 </li>
                  <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/acercade' %}active{% endif %}"
+                    <a class="nav-link {% if request.path == '/acercade/' %}active{% endif %}"
                         href="{% url 'acercade' %}">Acerca de</a>
                 </li>
             </ul>
 
-            <ul class="navbar-nav  py-4 py-lg-0">
+            <ul class="navbar-nav ms-5">
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown pe-5">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

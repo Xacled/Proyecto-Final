@@ -133,3 +133,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER ='blog.info.cambio.climatico@gmail.com'
 EMAIL_HOST_PASSWORD = 'twlr jxwi dihu eozj'
 EMAIL_USE_SSL = False
+
