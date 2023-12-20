@@ -20,7 +20,7 @@ class Registro(CreateView):
 	#FORMULARIO DJANGO
 	form_class = RegistroForm
 	success_url = reverse_lazy('login')
-	template_name = 'usuarios/registro.html'
+	template_name = "usuarios/registration/registro.html"
 
 class Modificar_usuario(UpdateView):
     model = CustomUser

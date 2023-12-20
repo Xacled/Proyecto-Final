@@ -4,14 +4,15 @@
 {% block contenido %}
 <div class="mx-auto text-center">
   <h3>CREAR NOTICIA</h3>
-{% if user.is_authenticated %}
+    {% if user.is_authenticated %}
 	<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}         
          {{form.media}} 
          {{form.as_p}}
          
-         <button type="submit" class="btn btn-primary">Confirmar</button>
+         <button type="submit" class="btn btn-primary mb-4">Confirmar</button>
         </form>
         {% else %}
         <h3>Incia sesion o registrate para postear!</h3>
         {% endif %}
+</div>
 {% endblock contenido %}
