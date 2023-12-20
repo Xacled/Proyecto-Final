@@ -5,9 +5,6 @@ from apps.noticias.models import Noticia
 from apps.comentarios.models import Comentario
 from .forms import RegistroForm, Formulario_Modificar_Usuario
 from .models import CustomUser
-# Create your views here.
-
-
 
 def Ver_perfil(request, username):
     ctx = {}
@@ -18,8 +15,6 @@ def Ver_perfil(request, username):
     ctx['user'] = user
     ctx['comentarios_user'] = comentarios_user
     return render(request, 'usuarios/perfil.html', ctx)
-
-
 
 class Registro(CreateView):
 	#FORMULARIO DJANGO
@@ -34,13 +29,4 @@ class Modificar_usuario(UpdateView):
     def get_success_url(self):
         username = self.object.username
         return reverse_lazy('usuarios:ver_perfil', kwargs={'username': username})
-    
-""" def get_success_url(self):
-        ctx = {}
-        username = self.object.username
-        id = self.object.id
-        ctx['username'] = username
-        ctx['id'] = id
-        return reverse_lazy('usuarios:ver_perfil', kwargs=ctx) """
-   
 

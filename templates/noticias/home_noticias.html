@@ -1,4 +1,37 @@
-{% extends 'base.html' %} {% block contenido %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<header class="text-center text-white py-2">
+  <div id="carouselExampleCaptions" class="carousel slide" style="max-width: 100%; margin: auto;">
+    <div class="carousel-indicators">
+      {% for i in noticias_populares %}
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" {%if forloop.first %} class="active" {% endif %} aria-label="Slide {{ forloop.counter }}">
+      </button>
+      {% endfor %}
+    </div>
+    <div class="carousel-inner">
+      {% for n in noticias_populares %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ n.imagen.url }}" class="d-block img-fluid" style="width: 100%; height: 720px; object-fit: cover;">
+        <div class="carousel-caption d-none d-md-block">
+          <h5 class="fw-bolder">{{ n.titulo }}</h5>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</header>
+
 <div class="container">
   <div class="row">
     <!-- Blog entries-->
@@ -13,7 +46,8 @@
           <h2 class="card-title">{{ noticias.0.titulo }}</h2>
           <p class="card-text">{{ noticias.0.contenido|striptags|truncatechars:100 }}</p>
 
-          <a class="btn btn-primary border shadow gradient-custom-2 mb-3" href="{% url 'noticias:detalle_noticia' noticias.0.pk %}">Leer más</a>
+          <a class="btn btn-primary border shadow gradient-custom-2 mb-3"
+            href="{% url 'noticias:detalle_noticia' noticias.0.pk %}">Leer más</a>
         </div>
       </div>
       <hr>
@@ -29,7 +63,8 @@
               <div class="small text-muted">{{ n.creado }}--{{ n.categoria }}</div>
               <h2 class="card-title h4">{{ n.titulo }}</h2>
               <p class="card-text">{{ n.contenido|striptags|linebreaksbr|truncatechars:100|safe }}</p>
-              <a class="btn btn-primary border shadow gradient-custom-2 mb-3" href="{% url 'noticias:detalle_noticia' n.pk %}">Leer más</a>
+              <a class="btn btn-primary border shadow gradient-custom-2 mb-3"
+                href="{% url 'noticias:detalle_noticia' n.pk %}">Leer más</a>
             </div>
           </div>
 
@@ -40,45 +75,45 @@
       <nav aria-label="Pagination">
         <hr class="my-0" />
         <ul class="pagination justify-content-center my-4">
-            {% if noticias.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page=1" tabindex="-1" aria-disabled="true">Anterior</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ noticias.previous_page_number }}">Previa</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <span class="page-link">Inicio</span>
-                </li>
-            {% endif %}
+          {% if noticias.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1" tabindex="-1" aria-disabled="true">Anterior</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ noticias.previous_page_number }}">Previa</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <span class="page-link">Inicio</span>
+          </li>
+          {% endif %}
 
-            {% for num in noticias.paginator.page_range %}
-                {% if noticias.number == num %}
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">{{ num }}</span>
-                    </li>
-                {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
+          {% for num in noticias.paginator.page_range %}
+          {% if noticias.number == num %}
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">{{ num }}</span>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
 
-            {% if noticias.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ noticias.next_page_number }}">Siguiente</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ noticias.paginator.num_pages }}">Ultima</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <span class="page-link">Ultima</span>
-                </li>
-            {% endif %}
+          {% if noticias.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ noticias.next_page_number }}">Siguiente</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ noticias.paginator.num_pages }}">Ultima</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <span class="page-link">Ultima</span>
+          </li>
+          {% endif %}
         </ul>
-    </nav>
+      </nav>
     </div>
     <div class="col-lg-4">
       <div class="card mb-4">
@@ -87,7 +122,7 @@
           <form method="get" action="{% url 'noticias:home_noticias' %}">
             <div class="input-group">
               <input class="form-control" type="text" name="q" placeholder="Enter search term..."
-                     aria-label="Enter search term..." aria-describedby="button-search" />
+                aria-label="Enter search term..." aria-describedby="button-search" />
               <button class="btn btn-primary" id="button-search" type="submit">Buscar</button>
             </div>
           </form>
@@ -114,10 +149,11 @@
             </div>
           </div>
         </div>
-      </div>      
+      </div>
       {% if user.is_authenticated %}
       <div class="card mb-4">
-        <div class="card-header {% if request.path == url %}active{% endif %} text-center"><a class="nav-link" href="{% url 'noticias:cargar_noticia' %}">Publicar Noticia</a></div>
+        <div class="card-header {% if request.path == url %}active{% endif %} text-center"><a class="nav-link"
+            href="{% url 'noticias:cargar_noticia' %}">Publicar Noticia</a></div>
       </div>
       {% endif %}
     </div>

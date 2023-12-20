@@ -1,4 +1,4 @@
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect, get_object_or_404, redirect
 from django.views.generic import DeleteView, UpdateView
 from apps.noticias.models import Noticia
 from .models import Comentario
@@ -7,14 +7,13 @@ from .forms import ComentarioModificacion
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404,redirect
-
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+
 def Agregar_Comentario(request, pk):
     contenido = request.POST.get('comentario', None)
-    noticia = Noticia.objects.get(pk=pk)
+    noticia = get_object_or_404(Noticia, pk=pk)
     usuario = request.user
     Comentario.objects.create(contenido=contenido, usuario=usuario, noticia=noticia)
     return HttpResponseRedirect(reverse_lazy('noticias:detalle_noticia', kwargs={'pk': pk}))
@@ -28,16 +27,12 @@ class BorrarComentario(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         comentario = self.get_object()
-        # Verificar que el usuario que realiza la acción sea el propietario del comentario
         if request.user == comentario.usuario:
             messages.success(request, 'Comentario eliminado exitosamente.')
             return super().delete(request, *args, **kwargs)
         else:
             messages.error(request, 'No tienes permisos para eliminar este comentario.')
             return HttpResponseRedirect(self.get_success_url())
-
-
-
 
 @method_decorator(login_required, name='dispatch')
 class ModificaComentario(UpdateView):
@@ -46,7 +41,6 @@ class ModificaComentario(UpdateView):
     template_name = 'comentarios/modificar.html'
 
     def form_valid(self, form):
-        # Asocia el usuario actual al campo 'usuario' del comentario antes de guardarlo
         form.instance.usuario = self.request.user
         return super().form_valid(form)
 
@@ -57,8 +51,5 @@ class ModificaComentario(UpdateView):
         comentario = self.get_object()
         if request.user != comentario.usuario:
             messages.error(request, 'No tienes permisos para modificar este comentario.')
-            # Redirige al usuario a la página de detalle de la noticia
             return redirect('noticias:detalle_noticia', pk=comentario.noticia.pk)
         return super().dispatch(request, *args, **kwargs)
-
-    

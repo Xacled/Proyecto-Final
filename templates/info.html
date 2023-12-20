@@ -1,42 +1,38 @@
-{%extends 'base.html'%} 
-{%block contenido%}
-<!DOCTYPE html>
-<body  style="background: #8A2387;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #F27121, #E94057, #8A2387);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #F27121, #E94057, #8A2387); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-">
-<div  class="container my-3" style=" background-color: aliceblue;">
-    <div>
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block contenido %}
+<body style="background: #8A2387;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #F27121, #E94057, #8A2387);
+            background: linear-gradient(to right, #F27121, #E94057, #8A2387);">
+
+    <div class="container my-3" style="background-color: aliceblue;">
         <div class="row">
-            <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 ">
+            <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
                 <h1 style="color: hwb(128 1% 78%);">Acerca de nosotros</h1>
                 <br>
-                <h2 style="color: hwb(128 1% 78%);">Hola! Somos blogsito, un sitio web donde vas a poder informarte sobre 
-                    noticias del cambio climatico.
-                </h2>
+                <h3 style="color: hwb(128 1% 78%);">¡Hola! Somos blogsito, un sitio web donde podrás informarte sobre noticias del cambio climático.</h3>
                 <br>
-                <p>Nuestro objetivo es informar y educar a la sociedad sobre la realidad del cambio climático,
-                     destacando la necesidad imperiosa de aprender como  cuidar nuestro planeta.
-                     A través de la investigación científica y la colaboración con expertos en sostenibilidad. </p>
-                <p>Apoyamos la adopción de prácticas sostenibles, el fomento de energías renovables
-                     y la implementación de políticas que reduzcan las emisiones de gases de efecto invernadero. Además,
-                      trabajamos para inspirar cambios en el comportamiento individual, fomentando estilos de vida 
-                      respetuosos con el medio ambiente y promoviendo la conservación de nuestros recursos naturales.</p>
-                <p>Somos un grupo de programadores que creemos en el poder de la información y la educación para 
-                    catalizar un cambio significativo en la lucha contra el cambio climático, y trabajamos
-                     para contribuir a un futuro más sostenible y resiliente para nuestro planeta.</p>
-                <p>¡Todos podemos ser parte del cambio!</p>
-                <p>Animate a ser parte de el con nosotros.</p>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-                rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
-                crossorigin="anonymous">
-        
+                <p>Nuestro objetivo es informar y educar a la sociedad sobre la realidad del cambio climático, destacando la necesidad imperiosa de aprender cómo cuidar nuestro planeta. Lo hacemos a través de la investigación científica y la colaboración con expertos en sostenibilidad.</p>
+                <p>Apoyamos la adopción de prácticas sostenibles, el fomento de energías renovables y la implementación de políticas que reduzcan las emisiones de gases de efecto invernadero. Además, trabajamos para inspirar cambios en el comportamiento individual, fomentando estilos de vida respetuosos con el medio ambiente y promoviendo la conservación de nuestros recursos naturales.</p>
+                <p>Somos un grupo de programadores que creemos en el poder de la información y la educación para catalizar un cambio significativo en la lucha contra el cambio climático, y trabajamos para contribuir a un futuro más sostenible y resiliente para nuestro planeta.</p>
+                <p>¡Todos podemos ser parte del cambio! Anímate a ser parte de él con nosotros.</p>
+
+                <h3 style="color: hwb(128 1% 78%);">El Equipo</h3>
+                <p>Nuestro equipo está formado por apasionados desarrolladores, cada uno comprometido con la causa de preservar nuestro planeta. Permitenos presentarnos:</p>
+                <ul>
+                    <li>**Carlos Trespalacios:** [Breve descripción]</li>
+                    <li>**Agustín Muller:** [Breve descripción]</li>
+                    <li>**Nadia Sofia Cardozo:** [Breve descripción]</li>
+                    <li>**Sergio Baldivarez:** [Breve descripción]</li>
+                </ul>
+
+                <p>Estamos unidos por la convicción de que la información y la acción van de la mano. Al colaborar en este blog, esperamos inspirarte a ti y a muchos otros a ser parte activa de la solución al desafío climático.</p>
+                <!-- Puedes agregar más detalles según sea necesario -->
+
             </div>
-            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 " 
-            style="background-image: url(static/img/mapache.jpg); background-size: 500px 600px;"> 
-            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4" style="background-image: url('{% static "img/mapache.jpg" %}'); background-size: 500px 600px;"></div>
         </div>
     </div>
-</div>
 </body>
-{%endblock contenido%}
+{% endblock contenido %}

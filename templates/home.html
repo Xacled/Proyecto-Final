@@ -2,70 +2,92 @@
 {% load static %}
 
 {% block contenido %}
-
-<header class="mosthead w-100 img-fluid position-relative" style="background-image: url('{% static 'img/a.jpg' %}') ">
-  <div class="container position-relative px-4 px-lg-5">
+<header class="mosthead img-fluid position-relative"
+  style="background-image: url('{% static 'img/img03.jpg' %}');">
+  <div class=" container position-relative px-4 px-lg-5">
+    <div class="overlay"></div>
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
         <div class="post-heading text-center">
           {% if user.is_authenticated %}
-          <h1 class="fw-bolder" style="color: white;">{{ user.username }} Bienvenido al blog climático </h1>
-          {% else  %}
-          <h1 class="fw-bolder" style="color: white;">Bienvenido al blog climático </h1>
-          {% endif %}       
-          <p class="lead mb-0" style="color: white;">Esta es la página de inicio donde encontrarás las noticias más vistas</p>
+          <h1 class="fw-bolder" style="color: white;">{{ user.username }}
+            Bienvenido al Portal climático </h1>
+          {% else %}
+          <h1 class="fw-bolder" style="color: white;">Bienvenido al Portal
+            climático </h1>
+          {% endif %}
+          <p class="lead mb-0 " style="color: rgb(0, 0, 0);">Este es el sitio
+            perfecto para encontrar noticias del cambio climatico, ven y aprende
+            con nosotros</p>
         </div>
       </div>
     </div>
   </div>
 </header>
+<div>
 
-
-<h2>Noticias Populares</h2>
-<div id="carouselExampleCaptions" class="carousel slide" style="max-width: 1200px; margin: auto;">
-  <div class="carousel-indicators">
-    {% for i in noticias_populares %}
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %} aria-label="Slide {{ forloop.counter }}">
-      </button>
-    {% endfor %}
-  </div>
-  <div class="carousel-inner">
-    {% for n in noticias_populares %}
-      <div class="carousel-item {% if forloop.first %}active{% endif %}">
-        <img src="{{ n.imagen.url }}" class="d-block img-fluid" style="width: 1200px; height: 720px; object-fit: cover;">
-        <div class="carousel-caption d-none d-md-block">
-          <h5 class="fw-bolder">{{ n.titulo }}</h5>
-          <p class="fw-bolder">{{ n.contenido|striptags|truncatechars:80}}</p>
+  <section id="scroll">
+    <div class="container px-5">
+      <div class="row gx-5 align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5"><img class="img-fluid rounded-circle"
+              src="{% static 'img/img01.jpg' %}" alt="..." /></div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+            <h2 class="display-4">¡Explora el Portal Climático!</h2>
+            <p>Descubre las últimas noticias e información sobre el cambio
+              climático para mantenerte informado y empoderado. En el Portal
+              Climático, estamos comprometidos con la conciencia ambiental y te
+              invitamos a ser parte de esta comunidad dedicada a la protección
+              de nuestro hogar compartido: la Tierra.</p>
+          </div>
         </div>
       </div>
-    {% endfor %}
-  </div>
+    </div>
+  </section>
 
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+  <section>
+    <div class="container px-5">
+      <div class="row gx-5 align-items-center">
+        <div class="col-lg-6">
+          <div class="p-5"><img class="img-fluid rounded-circle"
+              src="{% static 'img/img02.jpg' %}" alt="..." /></div>
+        </div>
+        <div class="col-lg-6">
+          <div class="p-5">
+            <h2 class="display-4">Te damos la bienvenida</h2>
+            <p>Somos un grupo apasionado de programadores que cree en el poder
+              de la información y la educación como catalizadores para lograr un
+              cambio significativo en la lucha contra el cambio climático. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div>
-  Aqui va el resto de contenido el cual se necesite añadir
-
-  van demasiadas 
-  cosas
-
-  que aun
-  no implemento
-
-  algo sencillo realmente 
-
-  pero me da pereza
-
-  aaa
+  <!-- Sección 3 -->
+  <section>
+    <div class="container px-5">
+      <div class="row gx-5 align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5">
+            <img class="img-fluid rounded-circle"
+              src="{% static 'img/img04.jpg' %}" alt="..." />
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+            <h2 class="display-4">¡Unete a la aventura!</h2>
+            <p>Trabajamos incansablemente para contribuir a un futuro más
+              sostenible y resiliente para nuestro preciado planeta. Únete a
+              nosotros en esta misión crucial y descubre cómo cada pequeña
+              acción puede marcar la diferencia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 {% endblock contenido %}
-

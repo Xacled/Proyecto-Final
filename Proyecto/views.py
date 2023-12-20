@@ -6,10 +6,7 @@ from django.http import HttpResponseRedirect
 from apps.usuarios.models import CustomUser  # Ajusta esta importación
 
 def Home(request):
-	ctx = {}
-	noticias_populares = Noticia.objects.order_by('-visitas')[:3]  # Obtén las 5 noticias más populares
-	ctx['noticias_populares'] = noticias_populares
-	return render(request, 'home.html', ctx)
+	return render(request, 'home.html')
 
 
 def Contacto(request):

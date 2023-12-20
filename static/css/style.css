@@ -63,15 +63,7 @@ body {
 }
 
 
-/* footer {
-  background-color: rgba(0, 0, 0, 0.05);
-}
 
-.footer-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-} */
 
 
 header.mosthead {
@@ -80,7 +72,7 @@ header.mosthead {
   padding-top: calc(8rem + 57px);
   padding-bottom: 8rem;
   background: no-repeat center center;
-  background-color: #6c757d;
+  background-color: #1f0202;
   background-size: cover;
   background-attachment: scroll;
 }
@@ -118,3 +110,4 @@ header.mosthead {
   color: green; /* Cambia el color a verde */
   /* Otros estilos personalizados si es necesario */
 }
+
