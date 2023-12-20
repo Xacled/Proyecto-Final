@@ -16,8 +16,6 @@ class Noticia(models.Model):
     modificado = models.DateTimeField("modificado", auto_now=True)
     titulo = models.CharField(max_length=250)
     contenido = RichTextField()
-    # para usar ImegeField, necesito tener instalado la libreria pillow
-    # pip install pillow
     imagen = models.ImageField(upload_to="noticias")
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     visitas = models.PositiveIntegerField(default=0)

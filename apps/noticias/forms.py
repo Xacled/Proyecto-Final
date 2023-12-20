@@ -14,6 +14,7 @@ class Formulario_Noticia(forms.ModelForm):
         }
 
 
+
 class Formulario_Modificar_Noticia(forms.ModelForm):
     class Meta:
         model = Noticia
@@ -24,3 +25,4 @@ class Formulario_Modificar_Noticia(forms.ModelForm):
             "imagen": forms.FileInput(attrs={"class": "form-control"}),
             "categoria": forms.Select(attrs={"class": "form-control"}),
         }
+
