@@ -31,7 +31,7 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav ms-5">
+            <ul class="navbar-nav pe-5">
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown pe-5">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,7 +45,7 @@
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="#"><form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-primary btn-sm border shadow gradient-custom-2 d-none d-sm-block align-text-top">
+                        <button type="submit" class="btn btn-primary border shadow gradient-custom-2 d-sm-block">
                             Cerrar sesión
                         </button>
                     </form></a></li>
@@ -53,7 +53,7 @@
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a href="{% url 'login'%}" class="btn btn-primary btn-sm border shadow gradient-custom-2 d-none d-sm-block align-text-top">
+                    <a href="{% url 'login'%}" class="btn btn-primary border shadow gradient-custom-2 d-sm-block">
                         Inicia Sesión
                     </a>
                 </li>
